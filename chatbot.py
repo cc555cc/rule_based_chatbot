@@ -1,6 +1,7 @@
-from response_database import BUSINESS_INFO, INTENT_KEYWORDS, RESERVATION_FIELD_KEYWORDS, NUMBER_WORDS
-from booking_store import save_booking
+from response_database import BUSINESS_INFO, INTENT_KEYWORDS, MENU_ITEMS, RESERVATION_FIELD_KEYWORDS, NUMBER_WORDS
+from booking_store import save_booking, save_delivery
 from datetime import date, timedelta
+import random
 
 
 #called by UI
@@ -10,7 +11,7 @@ def generate_response(phrase):
     if "reservation" in intents:
         return extract_reserve_detail(word_list)
     elif "menu" in intents:
-        return "static/menu.png"
+        return "resource/menu.png"
     elif "delivery" in intents:
         return extract_delivery_detail(word_list)
 
@@ -21,7 +22,9 @@ def parse_phrase(phrase):
 
     #split the phrase into individual words and store them in a list.
     for word in phrase.lower().split():
-        parse_list.append(word)
+        cleaned_word = word.strip(".,!?;:")
+        if cleaned_word:
+            parse_list.append(cleaned_word)
 
     return parse_list
 
@@ -51,7 +54,7 @@ def second_level_intent(top_intent,word_list):
         return False
 
     #if ask about operation/contact info --> just response with predefined restaurant info
-    if top_intent in ["operation", "contact"]:
+    if top_intent in ["greeting", "operation", "contact"]:
         return top_intent
 
     #explore sub-intent if asking about services: delivery, menu, reservation
@@ -132,7 +135,11 @@ def extract_delivery_address(word_list, i, word):
         return ""
 
     address_words = []
-    stop_words = {"at", "for", "on", "today", "tomorrow", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"}
+    stop_words = {
+        "at", "for", "on", "with",
+        "today", "tomorrow", "monday", "tuesday", "wednesday",
+        "thursday", "friday", "saturday", "sunday",
+    }
 
     for next_word in word_list[i + 1:]:
         if next_word in stop_words:
@@ -152,6 +159,39 @@ def extract_delivery_time(word_list, i, word):
         return is_time_value(word_list[i + 1:])
 
     return extract_time(word_list, i, word, RESERVATION_FIELD_KEYWORDS["time"])
+
+
+def extract_delivery_order(word_list):
+    menu_items = []
+
+    for section_items in MENU_ITEMS.values():
+        menu_items.extend(section_items)
+
+    menu_items.sort(key=lambda item: len(item["name"].split()), reverse=True)
+
+    order = []
+    total = 0
+    i = 0
+    while i < len(word_list):
+        matched_item = None
+
+        for item in menu_items:
+            item_words = item["name"].lower().split()
+            item_length = len(item_words)
+
+            if word_list[i:i + item_length] == item_words:
+                matched_item = item
+                break
+
+        if matched_item:
+            order.append(matched_item["name"])
+            total += matched_item["price"]
+            i += len(matched_item["name"].split())
+            continue
+
+        i += 1
+
+    return order, total
 
 
 def extract_reserve_detail(word_list):
@@ -197,6 +237,8 @@ def extract_delivery_detail(word_list):
     details = {
         "name": "",
         "address": "",
+        "order": [],
+        "total": 0,
     }
 
     for i, word in enumerate(word_list):
@@ -206,7 +248,18 @@ def extract_delivery_detail(word_list):
         if details["address"] == "":
             details["address"] = extract_delivery_address(word_list, i, word)
 
-    if "" not in details.values():
+    details["order"], details["total"] = extract_delivery_order(word_list)
+
+    if details["name"] and details["address"]:
+        save_delivery(details["name"], details["address"], details["order"], details["total"])
+
+        if details["order"]:
+            order_text = ", ".join(details["order"])
+            return (
+                f"We have scheduled a delivery for {details['name']} to "
+                f"{details['address']} with {order_text}. Total: ${details['total']:.2f}."
+            )
+
         return f"We have scheduled a delivery for {details['name']} to {details['address']}."
 
     return BUSINESS_INFO["service"]["details"]["delivery"]
@@ -304,7 +357,9 @@ def get_next_weekday_date(day_name):
 def get_response(intents):
     top_intent, sub_intent = intents
 
-    if top_intent == "operation":
+    if top_intent == "greeting":
+        return random.choice(BUSINESS_INFO["greeting"]["responses"])
+    elif top_intent == "operation":
         return BUSINESS_INFO["operation"]["response"]
     elif top_intent == "contact":
         return BUSINESS_INFO["contact"]["response"]

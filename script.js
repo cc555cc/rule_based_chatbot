@@ -6,7 +6,17 @@ const CHAT_API_URL = "http://127.0.0.1:8000/api/chat";
 function addMessage(text, className) {
   const message = document.createElement("div");
   message.className = `message ${className}`;
-  message.textContent = text;
+
+  if (typeof text === "string" && /\.(png|jpg|jpeg|gif|webp)$/i.test(text)) {
+    const image = document.createElement("img");
+    image.src = text;
+    image.alt = "Menu";
+    image.className = "chat-image";
+    message.appendChild(image);
+  } else {
+    message.textContent = text;
+  }
+
   messages.appendChild(message);
   messages.scrollTop = messages.scrollHeight;
 }

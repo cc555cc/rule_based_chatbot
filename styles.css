@@ -60,6 +60,13 @@ body {
   line-height: 1.4;
 }
 
+.chat-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
 .bot-message {
   background: #e2e8f0;
 }

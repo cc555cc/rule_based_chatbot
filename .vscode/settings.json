@@ -1,0 +1,6 @@
+{
+  "files.watcherExclude": {
+    "**/bookings.jsonl": true,
+    "**/deliveries.jsonl": true
+  }
+}

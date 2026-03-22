@@ -8,6 +8,15 @@ Each item represents one intent category:
 """
 
 INTENT_KEYWORDS = {
+    "greeting": {
+        "message": [
+            "hello",
+            "hi",
+            "hey",
+            "greetings",
+            "welcome",
+        ],
+    },
     "operation": {
         "address": [
             "where",
@@ -177,7 +186,38 @@ NUMBER_WORDS = [
     "twenty",
 ]
 
+MENU_ITEMS = {
+    "breakfast": [
+        {"name": "Eggs Benedict", "price": 4.99},
+        {"name": "Waffle Fresh Berries", "price": 3.99},
+        {"name": "Poridge With Cherries", "price": 6.99},
+        {"name": "Poached Egg Sandwiches", "price": 5.99},
+        {"name": "Banana and Blackberry Toast", "price": 4.99},
+    ],
+    "main": [
+        {"name": "Lasagna", "price": 4.99},
+        {"name": "Beef Stew", "price": 3.99},
+        {"name": "Salmon Steak", "price": 6.99},
+        {"name": "Spaghetti", "price": 5.99},
+        {"name": "Green Pea Soup", "price": 4.99},
+    ],
+    "salads": [
+        {"name": "Poke Salad", "price": 4.99},
+        {"name": "Salmon Salad", "price": 3.99},
+        {"name": "Diet Salad", "price": 6.99},
+        {"name": "Avocado Tuna Salad", "price": 5.99},
+        {"name": "Organic Ham Salad", "price": 4.99},
+    ],
+}
+
 BUSINESS_INFO = {
+    "greeting": {
+        "responses": [
+            "Hello! Welcome to our restaurant. How can I help you today?",
+            "Hi there! We're glad you're here. What can I help you with today?",
+            "Hey! Welcome in. Let me know if you need help with our menu, hours, or reservations.",
+        ],
+    },
     "operation": {
         "response": "We are open from 9 AM to 9 PM every day, and our restaurant is located at 123 Main Street.",
         "details": {
