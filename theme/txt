@@ -1,0 +1,180 @@
+General Info
+
+restaurant hours
+holiday hours
+location
+directions
+phone number
+email/contact info
+website or social links
+parking availability
+accessibility information
+dine-in or takeout availability
+Reservations
+
+make a reservation
+cancel a reservation
+change a reservation
+check reservation status
+table availability
+large group booking
+private room booking
+waitlist information
+Menu Questions
+
+show the menu
+drinks menu
+dessert menu
+kids menu
+daily specials
+seasonal menu
+combo meals
+best-selling dishes
+chef recommendations
+ingredients in a dish
+Dietary / Allergy
+
+vegetarian options
+vegan options
+gluten-free options
+halal options
+kosher options
+dairy-free options
+nut-free options
+spicy vs non-spicy dishes
+allergy warnings
+ingredient substitutions
+Ordering
+
+place an order
+reorder a past item
+customize an order
+remove ingredients
+add extra toppings
+choose portion size
+choose side dishes
+pickup order
+delivery order
+curbside pickup
+Pricing
+
+price of a dish
+extra charges
+taxes
+delivery fee
+service charge
+discount availability
+coupon or promo code
+student discount
+family deals
+lunch specials
+Delivery / Pickup
+
+delivery areas
+delivery time estimate
+pickup time estimate
+order tracking
+minimum order amount
+third-party delivery support
+late delivery issue
+missing item in delivery
+wrong item received
+pickup instructions
+Payments
+
+accepted payment methods
+cash accepted
+card accepted
+mobile payment accepted
+split bill options
+pay online
+pay in store
+gift cards
+refunds
+tipping policy
+Food Details
+
+portion size
+calorie information
+nutrition facts
+ingredient list
+freshness
+spice level
+recommended pairings
+popular dishes
+kid-friendly items
+alcohol information
+Customer Support
+
+complaint submission
+compliment or feedback
+report bad service
+food quality issue
+refund request
+exchange or replacement
+contact manager
+order issue help
+lost and found
+technical support for ordering
+Events / Services
+
+catering
+birthday party booking
+event hosting
+business lunch booking
+wedding or celebration inquiry
+live music nights
+happy hour details
+buffet availability
+cooking classes
+loyalty program
+Policies
+
+cancellation policy
+late arrival policy
+pet policy
+outside food policy
+dress code
+age restrictions
+smoking policy
+refund policy
+reservation deposit policy
+service animal policy
+Operational Questions
+
+are you open now
+how busy are you
+estimated wait time
+do you take walk-ins
+can I bring a stroller
+high chair availability
+wheelchair access
+restroom availability
+wifi availability
+charging outlets
+Post-Visit
+
+leave a review
+request receipt
+get invoice
+report an item left behind
+ask about loyalty points
+check points balance
+ask about upcoming promotions
+subscribe to updates
+ask for recommendations next time
+request customer support follow-up
+If you want to make this manageable, I’d group them into a smaller set of intents like:
+
+greeting
+hours
+location
+reservations
+menu
+dietary
+ordering
+delivery
+pricing
+payment
+complaints
+fallback
