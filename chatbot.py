@@ -3,12 +3,13 @@ from booking_store import save_booking, save_delivery
 from datetime import date, timedelta
 import random
 
-
 #called by UI
 def generate_response(phrase):
     word_list = parse_phrase(phrase)
     intents = get_intent(phrase)
-    if "reservation" in intents:
+
+    #query is asking about service, extract detail
+    if "reservation" in intents: 
         return extract_reserve_detail(word_list)
     elif "menu" in intents:
         return "resource/menu.png"
@@ -28,11 +29,14 @@ def parse_phrase(phrase):
 
     return parse_list
 
+#procedure to extract intent from the conversation
 def get_intent(phrase):
     word_list = parse_phrase(phrase)
 
+    #determine the top intention: operation info, contact, service ...
     top_intent = top_level_intent(word_list)
 
+    #determine sub-level intention
     sub_intent = second_level_intent(top_intent, word_list)
 
     return [top_intent, sub_intent]
@@ -57,7 +61,7 @@ def second_level_intent(top_intent,word_list):
     if top_intent in ["greeting", "operation", "contact"]:
         return top_intent
 
-    #explore sub-intent if asking about services: delivery, menu, reservation
+    #explore sub-intention if asking about services: delivery, menu, reservation
     if top_intent != "service":
         return False
 
@@ -68,6 +72,7 @@ def second_level_intent(top_intent,word_list):
 
     return False
 
+#extract reservation / delivery detail helper function
 def extract_name(word_list, i, word, name_keywords):
     if i + 1 >= len(word_list) or word in NUMBER_WORDS:
         return ""
@@ -118,7 +123,8 @@ def extract_date(word_list, i, word, date_keywords):
         return str(get_next_weekday_date(word))
 
     if word in date_keywords["after"] and i + 1 < len(word_list):
-        return is_date_value(word_list[i + 1:])
+        parsed_date = is_date_value(word_list[i + 1])
+        return parsed_date or ""
 
     return ""
 
@@ -160,7 +166,7 @@ def extract_delivery_time(word_list, i, word):
 
     return extract_time(word_list, i, word, RESERVATION_FIELD_KEYWORDS["time"])
 
-
+#extract dishes name from query and their price
 def extract_delivery_order(word_list):
     menu_items = []
 
@@ -220,7 +226,9 @@ def extract_reserve_detail(word_list):
                 return "unclear"
 
         if details["date"] == "":
-            details["date"] = extract_date(word_list, i, word, date_keywords)
+            extracted_date = extract_date(word_list, i, word, date_keywords)
+            if extracted_date:
+                details["date"] = extracted_date
 
     if "" not in details.values():
         save_booking(details["name"], details["party_size"], details["time"], details["date"])
