@@ -3,6 +3,14 @@ from booking_store import save_booking, save_delivery
 from datetime import date, timedelta
 import random
 
+
+MONTH_NAMES = {
+    "january", "february", "march", "april", "may", "june",
+    "july", "august", "september", "october", "november", "december",
+}
+NAME_PREFIX_WORDS = {"the", "a", "an", "name"}
+
+
 #called by UI
 def generate_response(phrase):
     word_list = parse_phrase(phrase)
@@ -23,7 +31,7 @@ def parse_phrase(phrase):
 
     #split the phrase into individual words and store them in a list.
     for word in phrase.lower().split():
-        cleaned_word = word.strip(".,!?;:")
+        cleaned_word = word.strip(".,!?;:").replace(".", "")
         if cleaned_word:
             parse_list.append(cleaned_word)
 
@@ -35,6 +43,10 @@ def get_intent(phrase):
 
     #determine the top intention: operation info, contact, service ...
     top_intent = top_level_intent(word_list)
+
+    if not top_intent and has_reservation_signals(word_list):
+        top_intent = "service"
+        return [top_intent, "reservation"]
 
     #determine sub-level intention
     sub_intent = second_level_intent(top_intent, word_list)
@@ -72,21 +84,48 @@ def second_level_intent(top_intent,word_list):
 
     return False
 
+
+def has_reservation_signals(word_list):
+    if not word_list:
+        return False
+
+    if any(word in RESERVATION_FIELD_KEYWORDS["date"]["exact"] for word in word_list):
+        return True
+
+    if "on" in word_list or "under" in word_list or "people" in word_list or "person" in word_list:
+        return True
+
+    for i, word in enumerate(word_list):
+        if word in {"for", "at"} and i + 1 < len(word_list):
+            next_word = word_list[i + 1]
+            if next_word.isdigit() or next_word in NUMBER_WORDS:
+                return True
+
+    return False
+
 #extract reservation / delivery detail helper function
 def extract_name(word_list, i, word, name_keywords):
-    if i + 1 >= len(word_list) or word in NUMBER_WORDS:
+    candidate_index = None
+
+    if word in name_keywords["before"] and i + 1 < len(word_list):
+        candidate_index = i + 1
+    elif word in name_keywords["after"] and i + 1 < len(word_list):
+        candidate_index = i + 1
+
+    if candidate_index is None:
         return ""
 
-    if word in name_keywords["before"]:
-        return word_list[i + 1]
+    while candidate_index < len(word_list) and word_list[candidate_index] in NAME_PREFIX_WORDS:
+        candidate_index += 1
 
-    if word in name_keywords["after"] and i + 2 < len(word_list) and word_list[i + 1] in name_keywords["after"]:
-        return word_list[i + 2]
+    if candidate_index >= len(word_list):
+        return ""
 
-    if word in name_keywords["after"]:
-        return word_list[i + 1]
+    candidate = word_list[candidate_index]
+    if candidate.isdigit() or candidate in NUMBER_WORDS:
+        return ""
 
-    return ""
+    return candidate.title()
 
 
 def extract_party_size(word_list, i, word, party_size_keywords):
@@ -107,7 +146,7 @@ def extract_time(word_list, i, word, time_keywords):
         return is_time_value(word_list[i - 1]) if i > 0 else ""
 
     if word in time_keywords["after"]:
-        return is_time_value(word_list[i + 1]) if i + 1 < len(word_list) else ""
+        return is_time_value(word_list[i + 1:i + 3]) if i + 1 < len(word_list) else ""
 
     if word in time_keywords["noon"]:
         return word
@@ -123,8 +162,11 @@ def extract_date(word_list, i, word, date_keywords):
         return str(get_next_weekday_date(word))
 
     if word in date_keywords["after"] and i + 1 < len(word_list):
-        parsed_date = is_date_value(word_list[i + 1])
-        return parsed_date or ""
+        max_end = min(len(word_list), i + 5)
+        for end in range(max_end, i + 1, -1):
+            parsed_date = is_date_value(word_list[i + 1:end])
+            if parsed_date:
+                return parsed_date
 
     return ""
 
@@ -230,7 +272,7 @@ def extract_reserve_detail(word_list):
             if extracted_date:
                 details["date"] = extracted_date
 
-    if "" not in details.values():
+    if all(details.values()):
         save_booking(details["name"], details["party_size"], details["time"], details["date"])
         message = (
             f"We have reserved a table of {details['party_size']} under "
@@ -274,7 +316,10 @@ def extract_delivery_detail(word_list):
 
 def is_time_value(text):
     if isinstance(text, list):
-        text = " ".join(text)
+        filtered_parts = [part for part in text if part not in {"the", "a", "an"}]
+        if not filtered_parts:
+            return False
+        text = " ".join(filtered_parts)
 
     text = text.lower().strip()
 
@@ -285,6 +330,10 @@ def is_time_value(text):
         number_part = text[:-2]
         if number_part.isdigit():
             return text
+
+    parts = text.split()
+    if len(parts) == 2 and parts[0].isdigit() and parts[1] in {"am", "pm"}:
+        return f"{parts[0]}{parts[1]}"
 
     parts = text.split(":")
     if len(parts) == 2:
@@ -330,6 +379,16 @@ def is_date_value(text):
         day, year = parts[1], parts[2]
         if day.isdigit() and year.isdigit() and 1 <= int(day) <= 31:
             return text
+
+    if len(parts) == 2 and parts[1] in month_names:
+        day = parts[0]
+        if day.isdigit() and 1 <= int(day) <= 31:
+            return f"{parts[1]} {day}"
+
+    if len(parts) == 3 and parts[1] in month_names:
+        day, year = parts[0], parts[2]
+        if day.isdigit() and year.isdigit() and 1 <= int(day) <= 31:
+            return f"{parts[1]} {day} {year}"
 
     if "/" in text or "-" in text:
         separator = "/" if "/" in text else "-"
