@@ -1,6 +1,7 @@
 from response_database import BUSINESS_INFO, INTENT_KEYWORDS, MENU_ITEMS, RESERVATION_FIELD_KEYWORDS, NUMBER_WORDS
 from booking_store import save_booking, save_delivery
 from datetime import date, timedelta
+from nltk.stem import WordNetLemmatizer
 import random
 
 
@@ -9,6 +10,16 @@ MONTH_NAMES = {
     "july", "august", "september", "october", "november", "december",
 }
 NAME_PREFIX_WORDS = {"the", "a", "an", "name"}
+
+lemmatizer = WordNetLemmatizer()
+
+def lemmatize_word(word):
+    noun_form = lemmatizer.lemmatize(word, pos="n")
+    verb_form = lemmatizer.lemmatize(noun_form, pos="v")
+    return verb_form
+
+def lemmatize_words(word_list):
+    return [lemmatize_word(word) for word in word_list]
 
 
 #called by UI
@@ -20,7 +31,7 @@ def generate_response(phrase):
     if "reservation" in intents: 
         return extract_reserve_detail(word_list)
     elif "menu" in intents:
-        return "resource/menu.png"
+        return ["Please check out our menu.", "resource/menu.png"]
     elif "delivery" in intents:
         return extract_delivery_detail(word_list)
 
@@ -40,32 +51,31 @@ def parse_phrase(phrase):
 #procedure to extract intent from the conversation
 def get_intent(phrase):
     word_list = parse_phrase(phrase)
+    normalized_words = lemmatize_words(word_list)
 
     #determine the top intention: operation info, contact, service ...
-    top_intent = top_level_intent(word_list)
+    top_intent = top_level_intent(normalized_words)
 
     if not top_intent and has_reservation_signals(word_list):
         top_intent = "service"
         return [top_intent, "reservation"]
 
     #determine sub-level intention
-    sub_intent = second_level_intent(top_intent, word_list)
+    sub_intent = second_level_intent(top_intent, normalized_words)
 
     return [top_intent, sub_intent]
 
 def top_level_intent(word_list):
-    top_intent = ""
-
     for word in word_list:
         for category_name, subcategories in INTENT_KEYWORDS.items():
             for keywords in subcategories.values():
-                if word in keywords:
-                    top_intent = category_name
-                    return top_intent
+                normalized_keywords = [lemmatize_word(k) for k in keywords]
+                if word in normalized_keywords:
+                    return category_name
 
     return False
     
-def second_level_intent(top_intent,word_list):
+def second_level_intent(top_intent, word_list):
     if not top_intent:
         return False
 
@@ -79,7 +89,8 @@ def second_level_intent(top_intent,word_list):
 
     for word in word_list:
         for subcategory_name, keywords in INTENT_KEYWORDS[top_intent].items():
-            if word in keywords:
+            normalized_keywords = [lemmatize_word(keyword) for keyword in keywords]
+            if word in normalized_keywords:
                 return subcategory_name
 
     return False

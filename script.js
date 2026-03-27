@@ -21,6 +21,15 @@ function addMessage(text, className) {
   messages.scrollTop = messages.scrollHeight;
 }
 
+function addBotReply(reply) {
+  if (Array.isArray(reply)) {
+    reply.forEach((item) => addMessage(item, "bot-message"));
+    return;
+  }
+
+  addMessage(reply, "bot-message");
+}
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -42,7 +51,7 @@ form.addEventListener("submit", async (event) => {
     });
 
     const data = await response.json();
-    addMessage(data.reply, "bot-message");
+    addBotReply(data.reply);
   } catch (error) {
     addMessage("Could not reach the chatbot server.", "bot-message");
   }
