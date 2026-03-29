@@ -1,9 +1,11 @@
 import json
 from datetime import datetime
+from pathlib import Path
 
 
-BOOKING_FILE = "bookings.jsonl"
-DELIVERY_FILE = "deliveries.jsonl"
+BASE_DIR = Path(__file__).resolve().parent
+BOOKING_FILE = BASE_DIR / "bookings.jsonl"
+DELIVERY_FILE = BASE_DIR / "deliveries.jsonl"
 
 
 def save_booking(name, party_size, booking_time, booking_date, file_path=BOOKING_FILE):

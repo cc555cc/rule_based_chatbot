@@ -1,7 +1,7 @@
 const form = document.getElementById("chat-form");
 const input = document.getElementById("user-input");
 const messages = document.getElementById("chat-messages");
-const CHAT_API_URL = "http://127.0.0.1:8000/api/chat";
+const CHAT_API_URL = new URL("/api/chat", window.location.origin).toString();
 
 function addMessage(text, className) {
   const message = document.createElement("div");

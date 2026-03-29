@@ -118,20 +118,26 @@ def has_reservation_signals(word_list):
 def extract_name(word_list, i, word, name_keywords):
     candidate_index = None
 
+    #if the keyword implies that the name is likely to be the next word, check the next word as candidate
     if word in name_keywords["before"] and i + 1 < len(word_list):
         candidate_index = i + 1
+    #if the keyword implies that the name is likely to be the previous word, check the previous word as candidate
     elif word in name_keywords["after"] and i + 1 < len(word_list):
         candidate_index = i + 1
 
+    #quit if no candidate index is identified
     if candidate_index is None:
         return ""
 
+    #skip common words that are unlikely to be part of the name
     while candidate_index < len(word_list) and word_list[candidate_index] in NAME_PREFIX_WORDS:
         candidate_index += 1
 
+    #quit if we have reached the end of the word list without finding a valid candidate
     if candidate_index >= len(word_list):
         return ""
 
+    #check if the candidate word is a number or a number word, which are unlikely to be part of the name
     candidate = word_list[candidate_index]
     if candidate.isdigit() or candidate in NUMBER_WORDS:
         return ""
@@ -143,9 +149,11 @@ def extract_party_size(word_list, i, word, party_size_keywords):
     if not (word.isdigit() or word in NUMBER_WORDS):
         return ""
 
+    #check if the word is likely to be the party size based on the presence of keywords that typically appear before or after the party size in a reservation query
     if i + 1 < len(word_list) and word_list[i + 1] in party_size_keywords["before"]:
         return word
 
+    #check if the word is likely to be the party size based on the presence of keywords that typically appear before or after the party size in a reservation query
     if i > 0 and word_list[i - 1] in party_size_keywords["after"]:
         return word
 
@@ -153,15 +161,19 @@ def extract_party_size(word_list, i, word, party_size_keywords):
 
 
 def extract_time(word_list, i, word, time_keywords):
+    #check if the word is likely to be the time based on the presence of keywords that typically appear before or after the time in a reservation query
     if word in time_keywords["before"]:
         return is_time_value(word_list[i - 1]) if i > 0 else ""
 
+    #check if the word is likely to be the time based on the presence of keywords that typically appear before or after the time in a reservation query
     if word in time_keywords["after"]:
         return is_time_value(word_list[i + 1:i + 3]) if i + 1 < len(word_list) else ""
 
+    #handle special cases where the time is expressed in a more casual way, such as "noon" or "midnight"
     if word in time_keywords["noon"]:
         return word
 
+    #handle special cases where the time is expressed in a more casual way, such as "evening" or "tonight", which are often used to refer to an unclear time in the evening
     if word in time_keywords["unclear"]:
         return "unclear"
 
@@ -169,11 +181,14 @@ def extract_time(word_list, i, word, time_keywords):
 
 
 def extract_date(word_list, i, word, date_keywords):
+    #check if the word is likely to be the date based on the presence of keywords that typically appear before or after the date in a reservation query
     if word in date_keywords["exact"]:
         return str(get_next_weekday_date(word))
 
+    #check if the word is likely to be the date based on the presence of keywords that typically appear before or after the date in a reservation query
     if word in date_keywords["after"] and i + 1 < len(word_list):
         max_end = min(len(word_list), i + 5)
+        #if the keyword is "on", then check wether the next few words forms validate date expression
         for end in range(max_end, i + 1, -1):
             parsed_date = is_date_value(word_list[i + 1:end])
             if parsed_date:
@@ -183,6 +198,7 @@ def extract_date(word_list, i, word, date_keywords):
 
 
 def extract_delivery_name(word_list, i, word):
+    #check if the word is likely to be the name based on the presence of keywords that typically appear before or after the name in a delivery query
     if word not in {"for", "name", "under"} or i + 1 >= len(word_list):
         return ""
 
@@ -190,6 +206,7 @@ def extract_delivery_name(word_list, i, word):
 
 
 def extract_delivery_address(word_list, i, word):
+    #check if the word is likely to be the address based on the presence of keywords that typically appear before or after the address in a delivery query
     if word not in {"to", "address", "at"} or i + 1 >= len(word_list):
         return ""
 
@@ -200,14 +217,16 @@ def extract_delivery_address(word_list, i, word):
         "thursday", "friday", "saturday", "sunday",
     }
 
+    #check the next few words after the keyword to see if they form a valid address
     for next_word in word_list[i + 1:]:
+        #stop if the word match the ones in stop_words, which are unlikely to be part of the address and often indicate the end of the address in a delivery query
         if next_word in stop_words:
             break
         address_words.append(next_word)
 
     return " ".join(address_words)
 
-
+#extract delivery time from query, handle both explicit time expression and more casual expression such as "tonight"
 def extract_delivery_phone(word):
     cleaned_word = word.replace("-", "").replace("(", "").replace(")", "")
     return word if cleaned_word.isdigit() and len(cleaned_word) >= 7 else ""
@@ -223,6 +242,7 @@ def extract_delivery_time(word_list, i, word):
 def extract_delivery_order(word_list):
     menu_items = []
 
+    #flatten the menu items into a single list and sort them by the number of words in their name in descending order to ensure that we match longer dish names before shorter ones
     for section_items in MENU_ITEMS.values():
         menu_items.extend(section_items)
 
@@ -234,15 +254,21 @@ def extract_delivery_order(word_list):
     while i < len(word_list):
         matched_item = None
 
+        #loop through menu item list to match with the words in query
         for item in menu_items:
             item_words = item["name"].lower().split()
             item_length = len(item_words)
 
+            #if the current position in the word list matches the words of a menu item
             if word_list[i:i + item_length] == item_words:
+                #add the item to the matched_item list
                 matched_item = item
                 break
-
+        
+        #if the list is not empty
         if matched_item:
+            #add the items to the order list, add up their prices and move the index 
+            #forward by the number of words in the matched item to continue searching for the next item in the query
             order.append(matched_item["name"])
             total += matched_item["price"]
             i += len(matched_item["name"].split())
@@ -266,23 +292,30 @@ def extract_reserve_detail(word_list):
     time_keywords = RESERVATION_FIELD_KEYWORDS["time"]
     date_keywords = RESERVATION_FIELD_KEYWORDS["date"]
 
+    #loop through the words in query, extract the reservation details based on keywords read
     for i, word in enumerate(word_list):
+        #extract name from the list, and set the name detail if extract_name returns a value
         if details["name"] == "":
             details["name"] = extract_name(word_list, i, word, name_keywords)
 
+        #extract party size from the list, and set the party size detail if extract_party_size returns a value
         if details["party_size"] == "":
             details["party_size"] = extract_party_size(word_list, i, word, party_size_keywords)
 
+        #extract time from the list, and set the time detail if extract_time returns a value
         if details["time"] == "":
             details["time"] = extract_time(word_list, i, word, time_keywords)
+            #if the time is expressed in a more casual way such as "evening" or "tonight"
             if details["time"] == "unclear":
                 return "unclear"
 
+        #extract date from the list, and set the date detail if extract_date returns a value
         if details["date"] == "":
             extracted_date = extract_date(word_list, i, word, date_keywords)
             if extracted_date:
                 details["date"] = extracted_date
 
+    #if all fields of details are filled, save the booking and return confirmation message
     if all(details.values()):
         save_booking(details["name"], details["party_size"], details["time"], details["date"])
         message = (
@@ -291,6 +324,7 @@ def extract_reserve_detail(word_list):
         )
         return message
 
+    #otherwise, return generic response
     return BUSINESS_INFO["service"]["details"]["reservation"]
 
 
@@ -302,6 +336,7 @@ def extract_delivery_detail(word_list):
         "total": 0,
     }
 
+    #loop through the words in query, extract the delivery details based on keywords read
     for i, word in enumerate(word_list):
         if details["name"] == "":
             details["name"] = extract_delivery_name(word_list, i, word)
@@ -311,48 +346,60 @@ def extract_delivery_detail(word_list):
 
     details["order"], details["total"] = extract_delivery_order(word_list)
 
+    #if both name and address are extracted
     if details["name"] and details["address"]:
         save_delivery(details["name"], details["address"], details["order"], details["total"])
 
+        #print the delivery details
         if details["order"]:
             order_text = ", ".join(details["order"])
             return (
                 f"We have scheduled a delivery for {details['name']} to "
                 f"{details['address']} with {order_text}. Total: ${details['total']:.2f}."
             )
-
+        #print confirm message
         return f"We have scheduled a delivery for {details['name']} to {details['address']}."
 
     return BUSINESS_INFO["service"]["details"]["delivery"]
 
 def is_time_value(text):
+    #if time value is expressed in a list of words
     if isinstance(text, list):
         filtered_parts = [part for part in text if part not in {"the", "a", "an"}]
+        #filter out common words that are not likely to form a time expression
         if not filtered_parts:
             return False
         text = " ".join(filtered_parts)
 
+    #convert text to lowercase and strip leading/tailing for easier processing
     text = text.lower().strip()
 
+    #case when time is expressed in a simple digit format
     if text.isdigit():
         return text
 
+    #case when time is expressed with am/pm directly attached to the number
     if text.endswith("am") or text.endswith("pm"):
+        #only check the part before am/pm
         number_part = text[:-2]
         if number_part.isdigit():
             return text
 
+    #case when time is expressed in a more standard format with ":" separating hour and minute
     parts = text.split()
+    #special case when time is expressed with am/pm without space
     if len(parts) == 2 and parts[0].isdigit() and parts[1] in {"am", "pm"}:
         return f"{parts[0]}{parts[1]}"
 
+    #case when time is expressed in a more standard format with ":" 
     parts = text.split(":")
+    #check if the time is expressed in valid formats
     if len(parts) == 2:
         hour, minute = parts
-
+        #confirm that both hour and minute part are digits, or the minute part ends with am/pm and the rest are digits
         if hour.isdigit() and minute.isdigit():
             return text
-
+        #case when minute part ends with am/pm
         if minute.endswith("am") or minute.endswith("pm"):
             minute_part = minute[:-2]
             if hour.isdigit() and minute_part.isdigit():
@@ -360,7 +407,9 @@ def is_time_value(text):
 
     return False
 
+#check if a given text can be interpreted as a date value
 def is_date_value(text):
+    #check if the date value is expressed in a list of words
     if isinstance(text, list):
         text = " ".join(text)
 
@@ -375,32 +424,38 @@ def is_date_value(text):
     if text in valid_words:
         return text
 
+    #if the text is not one of the expected date expression, check if it contains month names and day numbers
     parts = text.replace(",", "").split()
     month_names = {
         "january", "february", "march", "april", "may", "june",
         "july", "august", "september", "october", "november", "december",
     }
 
+    #check if the date is expressed in formats like "March 5" or "March 5, 2024"
     if len(parts) == 2 and parts[0] in month_names:
         day = parts[1]
         if day.isdigit() and 1 <= int(day) <= 31:
             return text
 
+    #check if the date is expressed in formats like "5 March 2024"
     if len(parts) == 3 and parts[0] in month_names:
         day, year = parts[1], parts[2]
         if day.isdigit() and year.isdigit() and 1 <= int(day) <= 31:
             return text
 
+    #check if the date is expressed in formats like "March 5" or "March 5, 2024" but with the month and day part switched, which is a common mistake people make when expressing date
     if len(parts) == 2 and parts[1] in month_names:
         day = parts[0]
         if day.isdigit() and 1 <= int(day) <= 31:
             return f"{parts[1]} {day}"
 
+    #check if the date is expressed in formats like "5 March 2024" but with the month and day part switched, which is a common mistake people make when expressing date
     if len(parts) == 3 and parts[1] in month_names:
         day, year = parts[0], parts[2]
         if day.isdigit() and year.isdigit() and 1 <= int(day) <= 31:
             return f"{parts[1]} {day} {year}"
-
+    
+    #check if the date is expressed in formats like "2024-03-05" or "2024/03/05"
     if "/" in text or "-" in text:
         separator = "/" if "/" in text else "-"
         parts = text.split(separator)
@@ -409,6 +464,7 @@ def is_date_value(text):
 
     return False
 
+#return a date object based on the given day name
 def get_next_weekday_date(day_name):
     weekdays = {
         "tomorrow": -2,
@@ -423,15 +479,20 @@ def get_next_weekday_date(day_name):
     }
 
     today = date.today()
+    #the phrase is today
     if weekdays[day_name.lower()] == -1:
         return today
+    #the phrase is tomorrow
     elif weekdays[day_name.lower()] == -2:
         return today + timedelta(1)
     else:
+        #add the number of days needed to reach the target weekday to today's date
         target_day = weekdays[day_name.lower()]
         days_ahead = (target_day - today.weekday()) % 7
 
         return today + timedelta(days=days_ahead)
+    
+#generate response based on the extracted intent
 def get_response(intents):
     top_intent, sub_intent = intents
 
