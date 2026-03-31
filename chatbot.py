@@ -2,6 +2,7 @@ from response_database import BUSINESS_INFO, INTENT_KEYWORDS, MENU_ITEMS, RESERV
 from booking_store import save_booking, save_delivery
 from datetime import date, timedelta
 from nltk.stem import WordNetLemmatizer
+from model_learning import appending_learning_entry, predict_intent_from_learned_entries
 import random
 
 
@@ -27,15 +28,7 @@ def generate_response(phrase):
     word_list = parse_phrase(phrase)
     intents = get_intent(phrase)
 
-    #query is asking about service, extract detail
-    if "reservation" in intents: 
-        return extract_reserve_detail(word_list)
-    elif "menu" in intents:
-        return ["Please check out our menu.", "resource/menu.png"]
-    elif "delivery" in intents:
-        return extract_delivery_detail(word_list)
-
-    return get_response(intents)
+    return get_response(phrase, intents)
 
 def parse_phrase(phrase):
     parse_list = []
@@ -167,7 +160,14 @@ def extract_time(word_list, i, word, time_keywords):
 
     #check if the word is likely to be the time based on the presence of keywords that typically appear before or after the time in a reservation query
     if word in time_keywords["after"]:
-        return is_time_value(word_list[i + 1:i + 3]) if i + 1 < len(word_list) else ""
+        if i + 1 < len(word_list):
+            next_word = is_time_value(word_list[i + 1])
+            if next_word:
+                return next_word
+
+            return is_time_value(word_list[i + 1:i + 3])
+        else:
+            return ""
 
     #handle special cases where the time is expressed in a more casual way, such as "noon" or "midnight"
     if word in time_keywords["noon"]:
@@ -492,15 +492,40 @@ def get_next_weekday_date(day_name):
 
         return today + timedelta(days=days_ahead)
     
-#generate response based on the extracted intent
-def get_response(intents):
+#generate response based on the extracted intent for
+def get_response(original_phrase, intents):
     top_intent, sub_intent = intents
+    word_list = parse_phrase(original_phrase)
 
-    if top_intent == "greeting":
-        return random.choice(BUSINESS_INFO["greeting"]["responses"])
-    elif top_intent == "operation":
-        return BUSINESS_INFO["operation"]["response"]
-    elif top_intent == "contact":
-        return BUSINESS_INFO["contact"]["response"]
+    #query is asking about service, extract detail
+    if "reservation" in intents: 
+        response = extract_reserve_detail(word_list)
+        appending_learning_entry(original_phrase, top_intent, sub_intent)
+        return response
+    elif "menu" in intents:
+        response = ["Please check out our menu.", "resource/menu.png"]
+        appending_learning_entry(original_phrase, top_intent, sub_intent)
+        return response
+    elif "delivery" in intents:
+        response = extract_delivery_detail(word_list)
+        appending_learning_entry(original_phrase, top_intent, sub_intent)
+        return response
+    else:
+        if top_intent == "greeting":
+            response = random.choice(BUSINESS_INFO["greeting"]["responses"])
+            appending_learning_entry(original_phrase, top_intent, sub_intent)
+            return response
+        elif top_intent == "operation":
+            response = BUSINESS_INFO["operation"]["response"]
+            appending_learning_entry(original_phrase, top_intent, sub_intent)
+            return response
+        elif top_intent == "contact":
+            response = BUSINESS_INFO["contact"]["response"]
+            appending_learning_entry(original_phrase, top_intent, sub_intent)
+            return response
+        else:
+            predicted_intents = predict_intent_from_learned_entries(original_phrase)
+            if predicted_intents:
+                return get_response(original_phrase, predicted_intents)
 
     return "Sorry, I do not understand that yet."

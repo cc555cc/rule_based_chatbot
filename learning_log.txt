@@ -1,0 +1,404 @@
+
+Learned word: show | phrase: show me brunch menu | top_intent: service | sub_intent: menu
+Learned word: brunch | phrase: show me brunch menu | top_intent: service | sub_intent: menu
+Learned word: brunch | phrase: i want brunch options | top_intent: service | sub_intent: menu
+Learned word: options | phrase: i want brunch options | top_intent: service | sub_intent: menu
+Learned word: brunch | phrase: brunch platter please | top_intent: service | sub_intent: menu
+Learned word: platter | phrase: brunch platter please | top_intent: service | sub_intent: menu
+Learned word: supper | phrase: do you have supper ideas | top_intent: service | sub_intent: menu
+Learned word: ideas | phrase: do you have supper ideas | top_intent: service | sub_intent: menu
+Learned word: show | phrase: show me entree choices | top_intent: service | sub_intent: menu
+Learned word: entree | phrase: show me entree choices | top_intent: service | sub_intent: menu
+Learned word: choices | phrase: show me entree choices | top_intent: service | sub_intent: menu
+Learned word: beverage | phrase: i want beverage suggestions | top_intent: service | sub_intent: menu
+Learned word: suggestions | phrase: i want beverage suggestions | top_intent: service | sub_intent: menu
+Learned word: snacks | phrase: what snacks do you serve | top_intent: service | sub_intent: menu
+Learned word: serve | phrase: what snacks do you serve | top_intent: service | sub_intent: menu
+Learned word: show | phrase: show me dinner picks | top_intent: service | sub_intent: menu
+Learned word: dinner | phrase: show me dinner picks | top_intent: service | sub_intent: menu
+Learned word: picks | phrase: show me dinner picks | top_intent: service | sub_intent: menu
+Learned word: need | phrase: i need lunch ideas | top_intent: service | sub_intent: menu
+Learned word: lunch | phrase: i need lunch ideas | top_intent: service | sub_intent: menu
+Learned word: ideas | phrase: i need lunch ideas | top_intent: service | sub_intent: menu
+Learned word: desserts | phrase: what desserts can i get | top_intent: service | sub_intent: menu
+Learned word: show | phrase: show me brunch specials | top_intent: service | sub_intent: menu
+Learned word: brunch | phrase: show me brunch specials | top_intent: service | sub_intent: menu
+Learned word: specials | phrase: show me brunch specials | top_intent: service | sub_intent: menu
+Learned word: appetizer | phrase: i want appetizer ideas | top_intent: service | sub_intent: menu
+Learned word: ideas | phrase: i want appetizer ideas | top_intent: service | sub_intent: menu
+Learned word: pastry | phrase: what pastry choices do you have | top_intent: service | sub_intent: menu
+Learned word: choices | phrase: what pastry choices do you have | top_intent: service | sub_intent: menu
+Learned word: show | phrase: show me supper selections | top_intent: service | sub_intent: menu
+Learned word: supper | phrase: show me supper selections | top_intent: service | sub_intent: menu
+Learned word: selections | phrase: show me supper selections | top_intent: service | sub_intent: menu
+Learned word: need | phrase: i need breakfast options | top_intent: service | sub_intent: menu
+Learned word: breakfast | phrase: i need breakfast options | top_intent: service | sub_intent: menu
+Learned word: options | phrase: i need breakfast options | top_intent: service | sub_intent: menu
+Learned word: meals | phrase: what meals are available | top_intent: service | sub_intent: menu
+Learned word: available | phrase: what meals are available | top_intent: service | sub_intent: menu
+Learned word: show | phrase: show me chef picks | top_intent: service | sub_intent: menu
+Learned word: chef | phrase: show me chef picks | top_intent: service | sub_intent: menu
+Learned word: picks | phrase: show me chef picks | top_intent: service | sub_intent: menu
+Learned word: smoothie | phrase: do you have smoothie choices | top_intent: service | sub_intent: menu
+Learned word: choices | phrase: do you have smoothie choices | top_intent: service | sub_intent: menu
+Learned word: noodle | phrase: i want noodle ideas | top_intent: service | sub_intent: menu
+Learned word: ideas | phrase: i want noodle ideas | top_intent: service | sub_intent: menu
+Learned word: show | phrase: show me salad options | top_intent: service | sub_intent: menu
+Learned word: salad | phrase: show me salad options | top_intent: service | sub_intent: menu
+Learned word: options | phrase: show me salad options | top_intent: service | sub_intent: menu
+Learned word: burger | phrase: what burger choices do you have | top_intent: service | sub_intent: menu
+Learned word: choices | phrase: what burger choices do you have | top_intent: service | sub_intent: menu
+Learned word: need | phrase: i need pizza ideas | top_intent: service | sub_intent: menu
+Learned word: pizza | phrase: i need pizza ideas | top_intent: service | sub_intent: menu
+Learned word: ideas | phrase: i need pizza ideas | top_intent: service | sub_intent: menu
+Learned word: show | phrase: show me dessert picks | top_intent: service | sub_intent: menu
+Learned word: dessert | phrase: show me dessert picks | top_intent: service | sub_intent: menu
+Learned word: picks | phrase: show me dessert picks | top_intent: service | sub_intent: menu
+Learned word: entree | phrase: what entree specials are there | top_intent: service | sub_intent: menu
+Learned word: specials | phrase: what entree specials are there | top_intent: service | sub_intent: menu
+Learned word: brunch | phrase: i want brunch selections | top_intent: service | sub_intent: menu
+Learned word: selections | phrase: i want brunch selections | top_intent: service | sub_intent: menu
+Learned word: show | phrase: show me lunch picks | top_intent: service | sub_intent: menu
+Learned word: lunch | phrase: show me lunch picks | top_intent: service | sub_intent: menu
+Learned word: picks | phrase: show me lunch picks | top_intent: service | sub_intent: menu
+Learned word: ideas | phrase: do you have drink ideas | top_intent: service | sub_intent: menu
+Learned word: need | phrase: i need snack options | top_intent: service | sub_intent: menu
+Learned word: snack | phrase: i need snack options | top_intent: service | sub_intent: menu
+Learned word: options | phrase: i need snack options | top_intent: service | sub_intent: menu
+Learned word: supper | phrase: what supper choices are there | top_intent: service | sub_intent: menu
+Learned word: choices | phrase: what supper choices are there | top_intent: service | sub_intent: menu
+Learned word: show | phrase: show me menu ideas | top_intent: service | sub_intent: menu
+Learned word: ideas | phrase: show me menu ideas | top_intent: service | sub_intent: menu
+Learned word: need | phrase: need takeaway tonight | top_intent: service | sub_intent: delivery
+Learned word: takeaway | phrase: need takeaway tonight | top_intent: service | sub_intent: delivery
+Learned word: tonight | phrase: need takeaway tonight | top_intent: service | sub_intent: delivery
+Learned word: arrange | phrase: arrange takeaway for alice | top_intent: service | sub_intent: delivery
+Learned word: takeaway | phrase: arrange takeaway for alice | top_intent: service | sub_intent: delivery
+Learned word: alice | phrase: arrange takeaway for alice | top_intent: service | sub_intent: delivery
+Learned word: send | phrase: send supper to 55 king street | top_intent: service | sub_intent: delivery
+Learned word: supper | phrase: send supper to 55 king street | top_intent: service | sub_intent: delivery
+Learned word: king | phrase: send supper to 55 king street | top_intent: service | sub_intent: delivery
+Learned word: street | phrase: send supper to 55 king street | top_intent: service | sub_intent: delivery
+Learned word: need | phrase: i need curbside tonight | top_intent: service | sub_intent: delivery
+Learned word: curbside | phrase: i need curbside tonight | top_intent: service | sub_intent: delivery
+Learned word: tonight | phrase: i need curbside tonight | top_intent: service | sub_intent: delivery
+Learned word: drop | phrase: drop dinner at 19 queen avenue | top_intent: service | sub_intent: delivery
+Learned word: dinner | phrase: drop dinner at 19 queen avenue | top_intent: service | sub_intent: delivery
+Learned word: queen | phrase: drop dinner at 19 queen avenue | top_intent: service | sub_intent: delivery
+Learned word: avenue | phrase: drop dinner at 19 queen avenue | top_intent: service | sub_intent: delivery
+Learned word: send | phrase: can you send brunch to my office | top_intent: service | sub_intent: delivery
+Learned word: brunch | phrase: can you send brunch to my office | top_intent: service | sub_intent: delivery
+Learned word: office | phrase: can you send brunch to my office | top_intent: service | sub_intent: delivery
+Learned word: prepare | phrase: prepare takeaway for bob | top_intent: service | sub_intent: delivery
+Learned word: takeaway | phrase: prepare takeaway for bob | top_intent: service | sub_intent: delivery
+Learned word: bob | phrase: prepare takeaway for bob | top_intent: service | sub_intent: delivery
+Learned word: snacks | phrase: deliver snacks to 88 church road | top_intent: service | sub_intent: delivery
+Learned word: church | phrase: deliver snacks to 88 church road | top_intent: service | sub_intent: delivery
+Learned word: road | phrase: deliver snacks to 88 church road | top_intent: service | sub_intent: delivery
+Learned word: need | phrase: i need pickup supper | top_intent: service | sub_intent: delivery
+Learned word: supper | phrase: i need pickup supper | top_intent: service | sub_intent: delivery
+Learned word: bring | phrase: bring dinner to 12 lake street | top_intent: service | sub_intent: delivery
+Learned word: dinner | phrase: bring dinner to 12 lake street | top_intent: service | sub_intent: delivery
+Learned word: lake | phrase: bring dinner to 12 lake street | top_intent: service | sub_intent: delivery
+Learned word: street | phrase: bring dinner to 12 lake street | top_intent: service | sub_intent: delivery
+Learned word: send | phrase: send lunch to my apartment | top_intent: service | sub_intent: delivery
+Learned word: lunch | phrase: send lunch to my apartment | top_intent: service | sub_intent: delivery
+Learned word: apartment | phrase: send lunch to my apartment | top_intent: service | sub_intent: delivery
+Learned word: drop | phrase: drop breakfast at 44 pine road | top_intent: service | sub_intent: delivery
+Learned word: breakfast | phrase: drop breakfast at 44 pine road | top_intent: service | sub_intent: delivery
+Learned word: pine | phrase: drop breakfast at 44 pine road | top_intent: service | sub_intent: delivery
+Learned word: road | phrase: drop breakfast at 44 pine road | top_intent: service | sub_intent: delivery
+Learned word: pastries | phrase: deliver pastries to 77 hill street | top_intent: service | sub_intent: delivery
+Learned word: hill | phrase: deliver pastries to 77 hill street | top_intent: service | sub_intent: delivery
+Learned word: street | phrase: deliver pastries to 77 hill street | top_intent: service | sub_intent: delivery
+Learned word: need | phrase: i need takeout for carol | top_intent: service | sub_intent: delivery
+Learned word: takeout | phrase: i need takeout for carol | top_intent: service | sub_intent: delivery
+Learned word: carol | phrase: i need takeout for carol | top_intent: service | sub_intent: delivery
+Learned word: bring | phrase: bring snacks to 16 river avenue | top_intent: service | sub_intent: delivery
+Learned word: snacks | phrase: bring snacks to 16 river avenue | top_intent: service | sub_intent: delivery
+Learned word: river | phrase: bring snacks to 16 river avenue | top_intent: service | sub_intent: delivery
+Learned word: avenue | phrase: bring snacks to 16 river avenue | top_intent: service | sub_intent: delivery
+Learned word: send | phrase: send beverages to my dorm | top_intent: service | sub_intent: delivery
+Learned word: beverages | phrase: send beverages to my dorm | top_intent: service | sub_intent: delivery
+Learned word: dorm | phrase: send beverages to my dorm | top_intent: service | sub_intent: delivery
+Learned word: brunch | phrase: deliver brunch to 101 market street | top_intent: service | sub_intent: delivery
+Learned word: market | phrase: deliver brunch to 101 market street | top_intent: service | sub_intent: delivery
+Learned word: street | phrase: deliver brunch to 101 market street | top_intent: service | sub_intent: delivery
+Learned word: prepare | phrase: prepare curbside pickup tonight | top_intent: service | sub_intent: delivery
+Learned word: curbside | phrase: prepare curbside pickup tonight | top_intent: service | sub_intent: delivery
+Learned word: tonight | phrase: prepare curbside pickup tonight | top_intent: service | sub_intent: delivery
+Learned word: drop | phrase: drop supper at 28 elm road | top_intent: service | sub_intent: delivery
+Learned word: supper | phrase: drop supper at 28 elm road | top_intent: service | sub_intent: delivery
+Learned word: elm | phrase: drop supper at 28 elm road | top_intent: service | sub_intent: delivery
+Learned word: road | phrase: drop supper at 28 elm road | top_intent: service | sub_intent: delivery
+Learned word: send | phrase: send pizza to 90 garden avenue | top_intent: service | sub_intent: delivery
+Learned word: pizza | phrase: send pizza to 90 garden avenue | top_intent: service | sub_intent: delivery
+Learned word: garden | phrase: send pizza to 90 garden avenue | top_intent: service | sub_intent: delivery
+Learned word: avenue | phrase: send pizza to 90 garden avenue | top_intent: service | sub_intent: delivery
+Learned word: lunch | phrase: deliver lunch to 32 oak street | top_intent: service | sub_intent: delivery
+Learned word: oak | phrase: deliver lunch to 32 oak street | top_intent: service | sub_intent: delivery
+Learned word: street | phrase: deliver lunch to 32 oak street | top_intent: service | sub_intent: delivery
+Learned word: bring | phrase: bring breakfast to 14 cedar lane | top_intent: service | sub_intent: delivery
+Learned word: breakfast | phrase: bring breakfast to 14 cedar lane | top_intent: service | sub_intent: delivery
+Learned word: cedar | phrase: bring breakfast to 14 cedar lane | top_intent: service | sub_intent: delivery
+Learned word: lane | phrase: bring breakfast to 14 cedar lane | top_intent: service | sub_intent: delivery
+Learned word: drop | phrase: drop dessert at 52 sunset road | top_intent: service | sub_intent: delivery
+Learned word: dessert | phrase: drop dessert at 52 sunset road | top_intent: service | sub_intent: delivery
+Learned word: sunset | phrase: drop dessert at 52 sunset road | top_intent: service | sub_intent: delivery
+Learned word: road | phrase: drop dessert at 52 sunset road | top_intent: service | sub_intent: delivery
+Learned word: send | phrase: send dinner to 61 harbour street | top_intent: service | sub_intent: delivery
+Learned word: dinner | phrase: send dinner to 61 harbour street | top_intent: service | sub_intent: delivery
+Learned word: harbour | phrase: send dinner to 61 harbour street | top_intent: service | sub_intent: delivery
+Learned word: street | phrase: send dinner to 61 harbour street | top_intent: service | sub_intent: delivery
+Learned word: prepare | phrase: prepare takeout for dave | top_intent: service | sub_intent: delivery
+Learned word: takeout | phrase: prepare takeout for dave | top_intent: service | sub_intent: delivery
+Learned word: dave | phrase: prepare takeout for dave | top_intent: service | sub_intent: delivery
+Learned word: supper | phrase: deliver supper to my condo | top_intent: service | sub_intent: delivery
+Learned word: condo | phrase: deliver supper to my condo | top_intent: service | sub_intent: delivery
+Learned word: bring | phrase: bring beverages to 8 hillcrest road | top_intent: service | sub_intent: delivery
+Learned word: beverages | phrase: bring beverages to 8 hillcrest road | top_intent: service | sub_intent: delivery
+Learned word: hillcrest | phrase: bring beverages to 8 hillcrest road | top_intent: service | sub_intent: delivery
+Learned word: road | phrase: bring beverages to 8 hillcrest road | top_intent: service | sub_intent: delivery
+Learned word: drop | phrase: drop meals at 73 maple avenue | top_intent: service | sub_intent: delivery
+Learned word: meals | phrase: drop meals at 73 maple avenue | top_intent: service | sub_intent: delivery
+Learned word: maple | phrase: drop meals at 73 maple avenue | top_intent: service | sub_intent: delivery
+Learned word: avenue | phrase: drop meals at 73 maple avenue | top_intent: service | sub_intent: delivery
+Learned word: send | phrase: send snacks to 24 willow street | top_intent: service | sub_intent: delivery
+Learned word: snacks | phrase: send snacks to 24 willow street | top_intent: service | sub_intent: delivery
+Learned word: willow | phrase: send snacks to 24 willow street | top_intent: service | sub_intent: delivery
+Learned word: street | phrase: send snacks to 24 willow street | top_intent: service | sub_intent: delivery
+Learned word: prepare | phrase: prepare pickup for emma | top_intent: service | sub_intent: delivery
+Learned word: emma | phrase: prepare pickup for emma | top_intent: service | sub_intent: delivery
+Learned word: supper | phrase: book supper for four | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: book supper for four | top_intent: service | sub_intent: reservation
+Learned word: reserve | phrase: reserve brunch for two | top_intent: service | sub_intent: reservation
+Learned word: brunch | phrase: reserve brunch for two | top_intent: service | sub_intent: reservation
+Learned word: two | phrase: reserve brunch for two | top_intent: service | sub_intent: reservation
+Learned word: set | phrase: set a supper booking for six | top_intent: service | sub_intent: reservation
+Learned word: supper | phrase: set a supper booking for six | top_intent: service | sub_intent: reservation
+Learned word: six | phrase: set a supper booking for six | top_intent: service | sub_intent: reservation
+Learned word: hold | phrase: hold a table for brunch tomorrow | top_intent: service | sub_intent: reservation
+Learned word: brunch | phrase: hold a table for brunch tomorrow | top_intent: service | sub_intent: reservation
+Learned word: need | phrase: i need a dinner slot for three | top_intent: service | sub_intent: reservation
+Learned word: dinner | phrase: i need a dinner slot for three | top_intent: service | sub_intent: reservation
+Learned word: slot | phrase: i need a dinner slot for three | top_intent: service | sub_intent: reservation
+Learned word: three | phrase: i need a dinner slot for three | top_intent: service | sub_intent: reservation
+Learned word: arrange | phrase: arrange a lunch table for five | top_intent: service | sub_intent: reservation
+Learned word: lunch | phrase: arrange a lunch table for five | top_intent: service | sub_intent: reservation
+Learned word: five | phrase: arrange a lunch table for five | top_intent: service | sub_intent: reservation
+Learned word: save | phrase: save a spot for date night | top_intent: service | sub_intent: reservation
+Learned word: spot | phrase: save a spot for date night | top_intent: service | sub_intent: reservation
+Learned word: date | phrase: save a spot for date night | top_intent: service | sub_intent: reservation
+Learned word: night | phrase: save a spot for date night | top_intent: service | sub_intent: reservation
+Learned word: schedule | phrase: schedule a brunch table for seven | top_intent: service | sub_intent: reservation
+Learned word: brunch | phrase: schedule a brunch table for seven | top_intent: service | sub_intent: reservation
+Learned word: seven | phrase: schedule a brunch table for seven | top_intent: service | sub_intent: reservation
+Learned word: supper | phrase: can i get a supper table tonight | top_intent: service | sub_intent: reservation
+Learned word: tonight | phrase: can i get a supper table tonight | top_intent: service | sub_intent: reservation
+Learned word: make | phrase: make a dinner reservation for eight | top_intent: service | sub_intent: reservation
+Learned word: dinner | phrase: make a dinner reservation for eight | top_intent: service | sub_intent: reservation
+Learned word: eight | phrase: make a dinner reservation for eight | top_intent: service | sub_intent: reservation
+Learned word: breakfast | phrase: book breakfast for two tomorrow | top_intent: service | sub_intent: reservation
+Learned word: two | phrase: book breakfast for two tomorrow | top_intent: service | sub_intent: reservation
+Learned word: reserve | phrase: reserve lunch for four at noon | top_intent: service | sub_intent: reservation
+Learned word: lunch | phrase: reserve lunch for four at noon | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: reserve lunch for four at noon | top_intent: service | sub_intent: reservation
+Learned word: noon | phrase: reserve lunch for four at noon | top_intent: service | sub_intent: reservation
+Learned word: set | phrase: set a table for five tonight | top_intent: service | sub_intent: reservation
+Learned word: five | phrase: set a table for five tonight | top_intent: service | sub_intent: reservation
+Learned word: tonight | phrase: set a table for five tonight | top_intent: service | sub_intent: reservation
+Learned word: hold | phrase: hold dinner seats for three | top_intent: service | sub_intent: reservation
+Learned word: dinner | phrase: hold dinner seats for three | top_intent: service | sub_intent: reservation
+Learned word: seats | phrase: hold dinner seats for three | top_intent: service | sub_intent: reservation
+Learned word: three | phrase: hold dinner seats for three | top_intent: service | sub_intent: reservation
+Learned word: schedule | phrase: schedule brunch seating for six | top_intent: service | sub_intent: reservation
+Learned word: brunch | phrase: schedule brunch seating for six | top_intent: service | sub_intent: reservation
+Learned word: seating | phrase: schedule brunch seating for six | top_intent: service | sub_intent: reservation
+Learned word: six | phrase: schedule brunch seating for six | top_intent: service | sub_intent: reservation
+Learned word: make | phrase: make a lunch booking for seven | top_intent: service | sub_intent: reservation
+Learned word: lunch | phrase: make a lunch booking for seven | top_intent: service | sub_intent: reservation
+Learned word: seven | phrase: make a lunch booking for seven | top_intent: service | sub_intent: reservation
+Learned word: reserve | phrase: reserve a birthday table for eight | top_intent: service | sub_intent: reservation
+Learned word: birthday | phrase: reserve a birthday table for eight | top_intent: service | sub_intent: reservation
+Learned word: eight | phrase: reserve a birthday table for eight | top_intent: service | sub_intent: reservation
+Learned word: date | phrase: book a date table for two | top_intent: service | sub_intent: reservation
+Learned word: two | phrase: book a date table for two | top_intent: service | sub_intent: reservation
+Learned word: save | phrase: save dinner seating for five | top_intent: service | sub_intent: reservation
+Learned word: dinner | phrase: save dinner seating for five | top_intent: service | sub_intent: reservation
+Learned word: seating | phrase: save dinner seating for five | top_intent: service | sub_intent: reservation
+Learned word: five | phrase: save dinner seating for five | top_intent: service | sub_intent: reservation
+Learned word: arrange | phrase: arrange brunch seats for four | top_intent: service | sub_intent: reservation
+Learned word: brunch | phrase: arrange brunch seats for four | top_intent: service | sub_intent: reservation
+Learned word: seats | phrase: arrange brunch seats for four | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: arrange brunch seats for four | top_intent: service | sub_intent: reservation
+Learned word: hold | phrase: hold a breakfast slot for three | top_intent: service | sub_intent: reservation
+Learned word: breakfast | phrase: hold a breakfast slot for three | top_intent: service | sub_intent: reservation
+Learned word: slot | phrase: hold a breakfast slot for three | top_intent: service | sub_intent: reservation
+Learned word: three | phrase: hold a breakfast slot for three | top_intent: service | sub_intent: reservation
+Learned word: schedule | phrase: schedule supper booking for nine | top_intent: service | sub_intent: reservation
+Learned word: supper | phrase: schedule supper booking for nine | top_intent: service | sub_intent: reservation
+Learned word: nine | phrase: schedule supper booking for nine | top_intent: service | sub_intent: reservation
+Learned word: lunch | phrase: book lunch seating for six | top_intent: service | sub_intent: reservation
+Learned word: seating | phrase: book lunch seating for six | top_intent: service | sub_intent: reservation
+Learned word: six | phrase: book lunch seating for six | top_intent: service | sub_intent: reservation
+Learned word: reserve | phrase: reserve dinner spots for four | top_intent: service | sub_intent: reservation
+Learned word: dinner | phrase: reserve dinner spots for four | top_intent: service | sub_intent: reservation
+Learned word: spots | phrase: reserve dinner spots for four | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: reserve dinner spots for four | top_intent: service | sub_intent: reservation
+Learned word: set | phrase: set brunch reservation for five | top_intent: service | sub_intent: reservation
+Learned word: brunch | phrase: set brunch reservation for five | top_intent: service | sub_intent: reservation
+Learned word: five | phrase: set brunch reservation for five | top_intent: service | sub_intent: reservation
+Learned word: hold | phrase: hold supper table for ten | top_intent: service | sub_intent: reservation
+Learned word: supper | phrase: hold supper table for ten | top_intent: service | sub_intent: reservation
+Learned word: ten | phrase: hold supper table for ten | top_intent: service | sub_intent: reservation
+Learned word: arrange | phrase: arrange dinner slot for two | top_intent: service | sub_intent: reservation
+Learned word: dinner | phrase: arrange dinner slot for two | top_intent: service | sub_intent: reservation
+Learned word: slot | phrase: arrange dinner slot for two | top_intent: service | sub_intent: reservation
+Learned word: two | phrase: arrange dinner slot for two | top_intent: service | sub_intent: reservation
+Learned word: save | phrase: save a lunch table for three | top_intent: service | sub_intent: reservation
+Learned word: lunch | phrase: save a lunch table for three | top_intent: service | sub_intent: reservation
+Learned word: three | phrase: save a lunch table for three | top_intent: service | sub_intent: reservation
+Learned word: make | phrase: make brunch seats for eight | top_intent: service | sub_intent: reservation
+Learned word: brunch | phrase: make brunch seats for eight | top_intent: service | sub_intent: reservation
+Learned word: seats | phrase: make brunch seats for eight | top_intent: service | sub_intent: reservation
+Learned word: eight | phrase: make brunch seats for eight | top_intent: service | sub_intent: reservation
+Learned word: supper | phrase: book a supper reservation for six | top_intent: service | sub_intent: reservation
+Learned word: six | phrase: book a supper reservation for six | top_intent: service | sub_intent: reservation
+Learned word: restaurant | phrase: hi restaurant team | top_intent: greeting | sub_intent: False
+Learned word: team | phrase: hi restaurant team | top_intent: greeting | sub_intent: False
+Learned word: good | phrase: good morning there | top_intent: greeting | sub_intent: False
+Learned word: morning | phrase: good morning there | top_intent: greeting | sub_intent: False
+Learned word: chef | phrase: What chef picks are available tonight? | top_intent: service | sub_intent: menu
+Learned word: picks | phrase: What chef picks are available tonight? | top_intent: service | sub_intent: menu
+Learned word: available | phrase: What chef picks are available tonight? | top_intent: service | sub_intent: menu
+Learned word: tonight | phrase: What chef picks are available tonight? | top_intent: service | sub_intent: menu
+Learned word: chef | phrase: What chef picks are available tonight? | top_intent: service | sub_intent: menu
+Learned word: picks | phrase: What chef picks are available tonight? | top_intent: service | sub_intent: menu
+Learned word: available | phrase: What chef picks are available tonight? | top_intent: service | sub_intent: menu
+Learned word: tonight | phrase: What chef picks are available tonight? | top_intent: service | sub_intent: menu
+Learned word: chef | phrase: What chef picks are available tonight? | top_intent: service | sub_intent: menu
+Learned word: picks | phrase: What chef picks are available tonight? | top_intent: service | sub_intent: menu
+Learned word: available | phrase: What chef picks are available tonight? | top_intent: service | sub_intent: menu
+Learned word: tonight | phrase: What chef picks are available tonight? | top_intent: service | sub_intent: menu
+Learned word: any | phrase: Do you have any brunch selections? | top_intent: service | sub_intent: menu
+Learned word: brunch | phrase: Do you have any brunch selections? | top_intent: service | sub_intent: menu
+Learned word: selections | phrase: Do you have any brunch selections? | top_intent: service | sub_intent: menu
+Learned word: send | phrase: Can you send supper over to my apartment? | top_intent: service | sub_intent: delivery
+Learned word: supper | phrase: Can you send supper over to my apartment? | top_intent: service | sub_intent: delivery
+Learned word: over | phrase: Can you send supper over to my apartment? | top_intent: service | sub_intent: delivery
+Learned word: apartment | phrase: Can you send supper over to my apartment? | top_intent: service | sub_intent: delivery
+Learned word: need | phrase: I need takeaway dropped at 18 King Street. | top_intent: service | sub_intent: reservation
+Learned word: takeaway | phrase: I need takeaway dropped at 18 King Street. | top_intent: service | sub_intent: reservation
+Learned word: dropped | phrase: I need takeaway dropped at 18 King Street. | top_intent: service | sub_intent: reservation
+Learned word: king | phrase: I need takeaway dropped at 18 King Street. | top_intent: service | sub_intent: reservation
+Learned word: street | phrase: I need takeaway dropped at 18 King Street. | top_intent: service | sub_intent: reservation
+Learned word: hold | phrase: Can you hold a supper table for four? | top_intent: service | sub_intent: reservation
+Learned word: supper | phrase: Can you hold a supper table for four? | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: Can you hold a supper table for four? | top_intent: service | sub_intent: reservation
+Learned word: hold | phrase: Can you hold a supper table for four? | top_intent: service | sub_intent: reservation
+Learned word: supper | phrase: Can you hold a supper table for four? | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: Can you hold a supper table for four? | top_intent: service | sub_intent: reservation
+Learned word: hold | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: supper | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: 7pm | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: under | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: alice | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: hold | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: supper | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: 7pm | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: under | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: alice | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: hold | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: supper | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: 7pm | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: under | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: alice | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: hold | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: supper | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: 7pm | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: under | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: alice | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: hold | phrase: Hold a supper table for four tomorrow at 7pm under Alice.Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: supper | phrase: Hold a supper table for four tomorrow at 7pm under Alice.Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: Hold a supper table for four tomorrow at 7pm under Alice.Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: 7pm | phrase: Hold a supper table for four tomorrow at 7pm under Alice.Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: under | phrase: Hold a supper table for four tomorrow at 7pm under Alice.Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: alicehold | phrase: Hold a supper table for four tomorrow at 7pm under Alice.Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: supper | phrase: Hold a supper table for four tomorrow at 7pm under Alice.Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: Hold a supper table for four tomorrow at 7pm under Alice.Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: 7pm | phrase: Hold a supper table for four tomorrow at 7pm under Alice.Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: under | phrase: Hold a supper table for four tomorrow at 7pm under Alice.Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: alice | phrase: Hold a supper table for four tomorrow at 7pm under Alice.Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: hold | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: supper | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: 7pm | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: under | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: alice | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: save | phrase: Save a brunch spot for two on Sunday at 10am for Kevin. | top_intent: service | sub_intent: reservation
+Learned word: brunch | phrase: Save a brunch spot for two on Sunday at 10am for Kevin. | top_intent: service | sub_intent: reservation
+Learned word: spot | phrase: Save a brunch spot for two on Sunday at 10am for Kevin. | top_intent: service | sub_intent: reservation
+Learned word: two | phrase: Save a brunch spot for two on Sunday at 10am for Kevin. | top_intent: service | sub_intent: reservation
+Learned word: sunday | phrase: Save a brunch spot for two on Sunday at 10am for Kevin. | top_intent: service | sub_intent: reservation
+Learned word: 10am | phrase: Save a brunch spot for two on Sunday at 10am for Kevin. | top_intent: service | sub_intent: reservation
+Learned word: kevin | phrase: Save a brunch spot for two on Sunday at 10am for Kevin. | top_intent: service | sub_intent: reservation
+Learned word: arrange | phrase: Arrange dinner seating for five tomorrow at 6pm under Maria. | top_intent: operation | sub_intent: False
+Learned word: dinner | phrase: Arrange dinner seating for five tomorrow at 6pm under Maria. | top_intent: operation | sub_intent: False
+Learned word: seating | phrase: Arrange dinner seating for five tomorrow at 6pm under Maria. | top_intent: operation | sub_intent: False
+Learned word: five | phrase: Arrange dinner seating for five tomorrow at 6pm under Maria. | top_intent: operation | sub_intent: False
+Learned word: 6pm | phrase: Arrange dinner seating for five tomorrow at 6pm under Maria. | top_intent: operation | sub_intent: False
+Learned word: under | phrase: Arrange dinner seating for five tomorrow at 6pm under Maria. | top_intent: operation | sub_intent: False
+Learned word: maria | phrase: Arrange dinner seating for five tomorrow at 6pm under Maria. | top_intent: operation | sub_intent: False
+Learned word: schedule | phrase: Schedule a lunch slot for three on Monday at noon for Daniel. | top_intent: service | sub_intent: reservation
+Learned word: lunch | phrase: Schedule a lunch slot for three on Monday at noon for Daniel. | top_intent: service | sub_intent: reservation
+Learned word: slot | phrase: Schedule a lunch slot for three on Monday at noon for Daniel. | top_intent: service | sub_intent: reservation
+Learned word: three | phrase: Schedule a lunch slot for three on Monday at noon for Daniel. | top_intent: service | sub_intent: reservation
+Learned word: monday | phrase: Schedule a lunch slot for three on Monday at noon for Daniel. | top_intent: service | sub_intent: reservation
+Learned word: noon | phrase: Schedule a lunch slot for three on Monday at noon for Daniel. | top_intent: service | sub_intent: reservation
+Learned word: daniel | phrase: Schedule a lunch slot for three on Monday at noon for Daniel. | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: Book a table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: 7pm | phrase: Book a table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: under | phrase: Book a table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: alice | phrase: Book a table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: Book a table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: 7pm | phrase: Book a table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: under | phrase: Book a table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: alice | phrase: Book a table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: Book a table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: 7pm | phrase: Book a table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: under | phrase: Book a table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: alice | phrase: Book a table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: Book a table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: 7pm | phrase: Book a table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: under | phrase: Book a table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: alice | phrase: Book a table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: hold | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: supper | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: four | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: 7pm | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: under | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: alice | phrase: Hold a supper table for four tomorrow at 7pm under Alice. | top_intent: service | sub_intent: reservation
+Learned word: schedule | phrase: Schedule a lunch slot for three on Monday at noon for Daniel. | top_intent: service | sub_intent: reservation
+Learned word: lunch | phrase: Schedule a lunch slot for three on Monday at noon for Daniel. | top_intent: service | sub_intent: reservation
+Learned word: slot | phrase: Schedule a lunch slot for three on Monday at noon for Daniel. | top_intent: service | sub_intent: reservation
+Learned word: three | phrase: Schedule a lunch slot for three on Monday at noon for Daniel. | top_intent: service | sub_intent: reservation
+Learned word: monday | phrase: Schedule a lunch slot for three on Monday at noon for Daniel. | top_intent: service | sub_intent: reservation
+Learned word: noon | phrase: Schedule a lunch slot for three on Monday at noon for Daniel. | top_intent: service | sub_intent: reservation
+Learned word: daniel | phrase: Schedule a lunch slot for three on Monday at noon for Daniel. | top_intent: service | sub_intent: reservation
+Learned word: make | phrase: Make a dinner slot for two tomorrow at 7:30pm under Emma. | top_intent: operation | sub_intent: False
+Learned word: dinner | phrase: Make a dinner slot for two tomorrow at 7:30pm under Emma. | top_intent: operation | sub_intent: False
+Learned word: slot | phrase: Make a dinner slot for two tomorrow at 7:30pm under Emma. | top_intent: operation | sub_intent: False
+Learned word: two | phrase: Make a dinner slot for two tomorrow at 7:30pm under Emma. | top_intent: operation | sub_intent: False
+Learned word: 7:30pm | phrase: Make a dinner slot for two tomorrow at 7:30pm under Emma. | top_intent: operation | sub_intent: False
+Learned word: under | phrase: Make a dinner slot for two tomorrow at 7:30pm under Emma. | top_intent: operation | sub_intent: False
+Learned word: emma | phrase: Make a dinner slot for two tomorrow at 7:30pm under Emma. | top_intent: operation | sub_intent: False
+Learned word: arrange | phrase: Arrange a supper booking for five on Friday at 6:30pm for Chloe. | top_intent: service | sub_intent: reservation
+Learned word: supper | phrase: Arrange a supper booking for five on Friday at 6:30pm for Chloe. | top_intent: service | sub_intent: reservation
+Learned word: five | phrase: Arrange a supper booking for five on Friday at 6:30pm for Chloe. | top_intent: service | sub_intent: reservation
+Learned word: friday | phrase: Arrange a supper booking for five on Friday at 6:30pm for Chloe. | top_intent: service | sub_intent: reservation
+Learned word: 6:30pm | phrase: Arrange a supper booking for five on Friday at 6:30pm for Chloe. | top_intent: service | sub_intent: reservation
+Learned word: chloe | phrase: Arrange a supper booking for five on Friday at 6:30pm for Chloe. | top_intent: service | sub_intent: reservation

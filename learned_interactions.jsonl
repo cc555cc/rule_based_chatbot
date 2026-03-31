@@ -1,0 +1,118 @@
+{"word": "show", "top_intent": {"service": 10}, "sub_intent": {"menu": 10}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "brunch", "top_intent": {"service": 16}, "sub_intent": {"menu": 6, "delivery": 2, "reservation": 8}, "updated_at": "2026-03-29T21:25:27"}
+{"word": "options", "top_intent": {"service": 4}, "sub_intent": {"menu": 4}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "platter", "top_intent": {"service": 1}, "sub_intent": {"menu": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "supper", "top_intent": {"service": 25}, "sub_intent": {"menu": 3, "delivery": 5, "reservation": 17}, "updated_at": "2026-03-29T21:29:58"}
+{"word": "ideas", "top_intent": {"service": 7}, "sub_intent": {"menu": 7}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "entree", "top_intent": {"service": 2}, "sub_intent": {"menu": 2}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "choices", "top_intent": {"service": 5}, "sub_intent": {"menu": 5}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "beverage", "top_intent": {"service": 1}, "sub_intent": {"menu": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "suggestions", "top_intent": {"service": 1}, "sub_intent": {"menu": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "snacks", "top_intent": {"service": 4}, "sub_intent": {"menu": 1, "delivery": 3}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "serve", "top_intent": {"service": 1}, "sub_intent": {"menu": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "dinner", "top_intent": {"service": 10, "operation": 2}, "sub_intent": {"menu": 1, "delivery": 3, "reservation": 6}, "updated_at": "2026-03-29T21:29:49"}
+{"word": "picks", "top_intent": {"service": 7}, "sub_intent": {"menu": 7}, "updated_at": "2026-03-29T21:21:44"}
+{"word": "need", "top_intent": {"service": 10}, "sub_intent": {"menu": 4, "delivery": 4, "reservation": 2}, "updated_at": "2026-03-29T21:22:45"}
+{"word": "lunch", "top_intent": {"service": 11}, "sub_intent": {"menu": 2, "delivery": 2, "reservation": 7}, "updated_at": "2026-03-29T21:29:41"}
+{"word": "desserts", "top_intent": {"service": 1}, "sub_intent": {"menu": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "specials", "top_intent": {"service": 2}, "sub_intent": {"menu": 2}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "appetizer", "top_intent": {"service": 1}, "sub_intent": {"menu": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "pastry", "top_intent": {"service": 1}, "sub_intent": {"menu": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "selections", "top_intent": {"service": 3}, "sub_intent": {"menu": 3}, "updated_at": "2026-03-29T21:22:02"}
+{"word": "breakfast", "top_intent": {"service": 5}, "sub_intent": {"menu": 1, "delivery": 2, "reservation": 2}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "meals", "top_intent": {"service": 2}, "sub_intent": {"menu": 1, "delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "available", "top_intent": {"service": 4}, "sub_intent": {"menu": 4}, "updated_at": "2026-03-29T21:21:44"}
+{"word": "chef", "top_intent": {"service": 4}, "sub_intent": {"menu": 4}, "updated_at": "2026-03-29T21:21:44"}
+{"word": "smoothie", "top_intent": {"service": 1}, "sub_intent": {"menu": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "noodle", "top_intent": {"service": 1}, "sub_intent": {"menu": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "salad", "top_intent": {"service": 1}, "sub_intent": {"menu": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "burger", "top_intent": {"service": 1}, "sub_intent": {"menu": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "pizza", "top_intent": {"service": 2}, "sub_intent": {"menu": 1, "delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "dessert", "top_intent": {"service": 2}, "sub_intent": {"menu": 1, "delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "snack", "top_intent": {"service": 1}, "sub_intent": {"menu": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "takeaway", "top_intent": {"service": 4}, "sub_intent": {"delivery": 3, "reservation": 1}, "updated_at": "2026-03-29T21:22:45"}
+{"word": "tonight", "top_intent": {"service": 8}, "sub_intent": {"delivery": 3, "reservation": 2, "menu": 3}, "updated_at": "2026-03-29T21:21:44"}
+{"word": "arrange", "top_intent": {"service": 5, "operation": 1}, "sub_intent": {"delivery": 1, "reservation": 4}, "updated_at": "2026-03-29T21:29:58"}
+{"word": "alice", "top_intent": {"service": 12}, "sub_intent": {"delivery": 1, "reservation": 11}, "updated_at": "2026-03-29T21:29:33"}
+{"word": "send", "top_intent": {"service": 8}, "sub_intent": {"delivery": 8}, "updated_at": "2026-03-29T21:22:25"}
+{"word": "king", "top_intent": {"service": 2}, "sub_intent": {"delivery": 1, "reservation": 1}, "updated_at": "2026-03-29T21:22:45"}
+{"word": "street", "top_intent": {"service": 8}, "sub_intent": {"delivery": 7, "reservation": 1}, "updated_at": "2026-03-29T21:22:45"}
+{"word": "curbside", "top_intent": {"service": 2}, "sub_intent": {"delivery": 2}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "drop", "top_intent": {"service": 5}, "sub_intent": {"delivery": 5}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "queen", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "avenue", "top_intent": {"service": 4}, "sub_intent": {"delivery": 4}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "office", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "prepare", "top_intent": {"service": 4}, "sub_intent": {"delivery": 4}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "bob", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "church", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "road", "top_intent": {"service": 5}, "sub_intent": {"delivery": 5}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "bring", "top_intent": {"service": 4}, "sub_intent": {"delivery": 4}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "lake", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "apartment", "top_intent": {"service": 2}, "sub_intent": {"delivery": 2}, "updated_at": "2026-03-29T21:22:25"}
+{"word": "pine", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "pastries", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "hill", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "takeout", "top_intent": {"service": 2}, "sub_intent": {"delivery": 2}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "carol", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "river", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "beverages", "top_intent": {"service": 2}, "sub_intent": {"delivery": 2}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "dorm", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "market", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "elm", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "garden", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "oak", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "cedar", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "lane", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "sunset", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "harbour", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "dave", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "condo", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "hillcrest", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "maple", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "willow", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "emma", "top_intent": {"service": 1, "operation": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:29:49"}
+{"word": "four", "top_intent": {"service": 18}, "sub_intent": {"reservation": 18}, "updated_at": "2026-03-29T21:29:33"}
+{"word": "reserve", "top_intent": {"service": 4}, "sub_intent": {"reservation": 4}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "two", "top_intent": {"service": 5, "operation": 1}, "sub_intent": {"reservation": 5}, "updated_at": "2026-03-29T21:29:49"}
+{"word": "set", "top_intent": {"service": 3}, "sub_intent": {"reservation": 3}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "six", "top_intent": {"service": 4}, "sub_intent": {"reservation": 4}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "hold", "top_intent": {"service": 13}, "sub_intent": {"reservation": 13}, "updated_at": "2026-03-29T21:29:33"}
+{"word": "slot", "top_intent": {"service": 5, "operation": 1}, "sub_intent": {"reservation": 5}, "updated_at": "2026-03-29T21:29:49"}
+{"word": "three", "top_intent": {"service": 6}, "sub_intent": {"reservation": 6}, "updated_at": "2026-03-29T21:29:41"}
+{"word": "five", "top_intent": {"service": 5, "operation": 1}, "sub_intent": {"reservation": 5}, "updated_at": "2026-03-29T21:29:58"}
+{"word": "save", "top_intent": {"service": 4}, "sub_intent": {"reservation": 4}, "updated_at": "2026-03-29T21:25:27"}
+{"word": "spot", "top_intent": {"service": 2}, "sub_intent": {"reservation": 2}, "updated_at": "2026-03-29T21:25:27"}
+{"word": "date", "top_intent": {"service": 2}, "sub_intent": {"reservation": 2}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "night", "top_intent": {"service": 1}, "sub_intent": {"reservation": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "schedule", "top_intent": {"service": 5}, "sub_intent": {"reservation": 5}, "updated_at": "2026-03-29T21:29:41"}
+{"word": "seven", "top_intent": {"service": 2}, "sub_intent": {"reservation": 2}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "make", "top_intent": {"service": 3, "operation": 1}, "sub_intent": {"reservation": 3}, "updated_at": "2026-03-29T21:29:49"}
+{"word": "eight", "top_intent": {"service": 3}, "sub_intent": {"reservation": 3}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "noon", "top_intent": {"service": 3}, "sub_intent": {"reservation": 3}, "updated_at": "2026-03-29T21:29:41"}
+{"word": "seats", "top_intent": {"service": 3}, "sub_intent": {"reservation": 3}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "seating", "top_intent": {"service": 3, "operation": 1}, "sub_intent": {"reservation": 3}, "updated_at": "2026-03-29T21:25:33"}
+{"word": "birthday", "top_intent": {"service": 1}, "sub_intent": {"reservation": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "nine", "top_intent": {"service": 1}, "sub_intent": {"reservation": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "spots", "top_intent": {"service": 1}, "sub_intent": {"reservation": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "ten", "top_intent": {"service": 1}, "sub_intent": {"reservation": 1}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "restaurant", "top_intent": {"greeting": 1}, "sub_intent": {}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "team", "top_intent": {"greeting": 1}, "sub_intent": {}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "good", "top_intent": {"greeting": 1}, "sub_intent": {}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "morning", "top_intent": {"greeting": 1}, "sub_intent": {}, "updated_at": "2026-03-29T21:10:02"}
+{"word": "any", "top_intent": {"service": 1}, "sub_intent": {"menu": 1}, "updated_at": "2026-03-29T21:22:02"}
+{"word": "over", "top_intent": {"service": 1}, "sub_intent": {"delivery": 1}, "updated_at": "2026-03-29T21:22:25"}
+{"word": "dropped", "top_intent": {"service": 1}, "sub_intent": {"reservation": 1}, "updated_at": "2026-03-29T21:22:45"}
+{"word": "7pm", "top_intent": {"service": 12}, "sub_intent": {"reservation": 12}, "updated_at": "2026-03-29T21:29:33"}
+{"word": "under", "top_intent": {"service": 12, "operation": 2}, "sub_intent": {"reservation": 12}, "updated_at": "2026-03-29T21:29:49"}
+{"word": "alicehold", "top_intent": {"service": 1}, "sub_intent": {"reservation": 1}, "updated_at": "2026-03-29T21:24:38"}
+{"word": "sunday", "top_intent": {"service": 1}, "sub_intent": {"reservation": 1}, "updated_at": "2026-03-29T21:25:27"}
+{"word": "10am", "top_intent": {"service": 1}, "sub_intent": {"reservation": 1}, "updated_at": "2026-03-29T21:25:27"}
+{"word": "kevin", "top_intent": {"service": 1}, "sub_intent": {"reservation": 1}, "updated_at": "2026-03-29T21:25:27"}
+{"word": "6pm", "top_intent": {"operation": 1}, "sub_intent": {}, "updated_at": "2026-03-29T21:25:33"}
+{"word": "maria", "top_intent": {"operation": 1}, "sub_intent": {}, "updated_at": "2026-03-29T21:25:33"}
+{"word": "monday", "top_intent": {"service": 2}, "sub_intent": {"reservation": 2}, "updated_at": "2026-03-29T21:29:41"}
+{"word": "daniel", "top_intent": {"service": 2}, "sub_intent": {"reservation": 2}, "updated_at": "2026-03-29T21:29:41"}
+{"word": "7:30pm", "top_intent": {"operation": 1}, "sub_intent": {}, "updated_at": "2026-03-29T21:29:49"}
+{"word": "friday", "top_intent": {"service": 1}, "sub_intent": {"reservation": 1}, "updated_at": "2026-03-29T21:29:58"}
+{"word": "6:30pm", "top_intent": {"service": 1}, "sub_intent": {"reservation": 1}, "updated_at": "2026-03-29T21:29:58"}
+{"word": "chloe", "top_intent": {"service": 1}, "sub_intent": {"reservation": 1}, "updated_at": "2026-03-29T21:29:58"}
