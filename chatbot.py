@@ -1,8 +1,8 @@
-from response_database import BUSINESS_INFO, INTENT_KEYWORDS, MENU_ITEMS, RESERVATION_FIELD_KEYWORDS, NUMBER_WORDS
+from learning_resource.response_database import BUSINESS_INFO, INTENT_KEYWORDS, MENU_ITEMS, RESERVATION_FIELD_KEYWORDS, NUMBER_WORDS
 from booking_store import save_booking, save_delivery
 from datetime import date, timedelta
 from nltk.stem import WordNetLemmatizer
-from model_learning import appending_learning_entry, predict_intent_from_learned_entries
+from learning_resource.model_learning import appending_learning_entry, predict_intent_from_learned_entries
 import random
 
 

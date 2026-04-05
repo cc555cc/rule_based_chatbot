@@ -1,8 +1,11 @@
 #this script is responsible for storing unrecognized user input and corresponding extracted intents for future model traning and improvement
 from datetime import datetime
 import json
+from pathlib import Path
 
-from response_database import STOP_WORDS,INTENT_KEYWORDS
+from learning_resource.response_database import STOP_WORDS,INTENT_KEYWORDS
+
+BASE_DIR = Path(__file__).resolve().parent
 
 def load_learned_entries():
     learned_entries = []
@@ -15,7 +18,9 @@ def load_learned_entries():
                     continue
 
                 try:
-                    learned_entries.append(json.loads(line))
+                    entry = json.loads(line)
+                    entry.setdefault("observation", 0)
+                    learned_entries.append(entry)
                 except json.JSONDecodeError:
                     continue
     except FileNotFoundError:
@@ -23,14 +28,20 @@ def load_learned_entries():
 
     return learned_entries
 
-LEARNED_INTERACTIONS_FILE = "learned_interactions.jsonl"
-LEARNING_LOG_FILE = "learning_log.txt"
+LEARNED_INTERACTIONS_FILE = BASE_DIR / "learned_interactions.jsonl"
+LEARNING_LOG_FILE = BASE_DIR / "learning_log.txt"
 
 KNOWN_INTENT_WORDS = {
     keyword
     for category in INTENT_KEYWORDS.values()
     for keyword_list in category.values()
     for keyword in keyword_list
+}
+
+KNOWN_INTENT_TOKENS = {
+    token
+    for keyword in KNOWN_INTENT_WORDS
+    for token in keyword.lower().split()
 }
 
 def normalize_learning_tokens(words):
@@ -71,6 +82,8 @@ def write_learning_log(word, original_phrase, top_intent, sub_intent):
 
 #called by chatbot.py to learn unrecognized word
 def appending_learning_entry(original_phrase, top_intent, sub_intent):
+    parsed_phrase = parse_learning_phrase(original_phrase)
+    has_known_intent_word = any(word in KNOWN_INTENT_TOKENS for word in parsed_phrase)
     normalized_phrase = normalize_learning_tokens(parse_learning_phrase(original_phrase))
     learned_entries = load_learned_entries()
 
@@ -103,11 +116,18 @@ def appending_learning_entry(original_phrase, top_intent, sub_intent):
                     unrecognized_word_entry["sub_intent"][sub_intent] = 1
                 else:
                     unrecognized_word_entry["sub_intent"][sub_intent] += 1
+            if has_known_intent_word:
+                unrecognized_word_entry["observation"] += 1
             unrecognized_word_entry["updated_at"] = datetime.now().isoformat(timespec="seconds")
             write_learning_log(word, original_phrase, top_intent, sub_intent)
         else:
             #returns a json entry of the new word
-            unrecognized_word_entry = add_new_keyword(word, top_intent, sub_intent)
+            unrecognized_word_entry = add_new_keyword(
+                word,
+                top_intent,
+                sub_intent,
+                observation=1 if has_known_intent_word else 0,
+            )
             learned_entries.append(unrecognized_word_entry)
             write_learning_log(word, original_phrase, top_intent, sub_intent)
 
@@ -116,7 +136,7 @@ def appending_learning_entry(original_phrase, top_intent, sub_intent):
             f.write(json.dumps(entry) + "\n")
 
 
-def add_new_keyword(word, top_intent, sub_intent):
+def add_new_keyword(word, top_intent, sub_intent, observation=0):
     associated_top_intent = {}
     associated_sub_intent = {}
 
@@ -129,6 +149,7 @@ def add_new_keyword(word, top_intent, sub_intent):
         "word": word,
         "top_intent": associated_top_intent,
         "sub_intent": associated_sub_intent,
+        "observation": observation,
         "updated_at": datetime.now().isoformat(timespec="seconds"),
     }
 
@@ -179,3 +200,66 @@ def train(sentence, top_intent, sub_intent=False):
         "sub_intent": sub_intent,
         "status": "trained",
     }
+
+def write_to_response_database(word, top_intent, sub_intent):
+    return 0
+
+if __name__ == "__main__":
+    from chatbot import get_intent
+
+    training_files = ("training_sentence.txt", "training_sentences.txt")
+    trained_count = 0
+    skipped_count = 0
+    training_file = None
+
+    for candidate in training_files:
+        try:
+            with open(candidate, "r", encoding="utf-8"):
+                training_file = candidate
+                break
+        except FileNotFoundError:
+            continue
+
+    if training_file is None:
+        print("No training file found. Expected training_sentence.txt or training_sentences.txt")
+    else:
+        with open(training_file, "r", encoding="utf-8") as f:
+            for raw_line in f:
+                line = raw_line.strip()
+                if not line or line.startswith("#"):
+                    continue
+
+                sentence = None
+                top_intent = None
+                sub_intent = False
+
+                try:
+                    entry = json.loads(line)
+                except json.JSONDecodeError:
+                    entry = None
+
+                if isinstance(entry, dict):
+                    sentence = entry.get("sentence")
+                    top_intent = entry.get("top_intent")
+                    sub_intent = entry.get("sub_intent", False)
+                else:
+                    delimiter = "\t" if "\t" in line else "|" if "|" in line else None
+                    if delimiter:
+                        parts = [part.strip() for part in line.split(delimiter)]
+                        if len(parts) >= 2:
+                            sentence = parts[0]
+                            top_intent = parts[1]
+                            if len(parts) >= 3 and parts[2]:
+                                sub_intent = parts[2]
+                    else:
+                        sentence = line
+                        top_intent, sub_intent = get_intent(sentence)
+
+                if sentence and top_intent:
+                    train(sentence, top_intent, sub_intent)
+                    trained_count += 1
+                else:
+                    skipped_count += 1
+
+        print(f"Training complete from {training_file}: trained={trained_count}, skipped={skipped_count}")
+
