@@ -2,10 +2,19 @@
 from datetime import datetime
 import json
 from pathlib import Path
+import ast
+import sys
+
+CURRENT_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = CURRENT_DIR.parent
+
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from learning_resource.response_database import STOP_WORDS,INTENT_KEYWORDS
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = CURRENT_DIR
+RESPONSE_DATABASE_FILE = BASE_DIR / "response_database.py"
 
 def load_learned_entries():
     learned_entries = []
@@ -71,9 +80,9 @@ def parse_learning_phrase(phrase):
 
     return parse_list
 
-def write_learning_log(word, original_phrase, top_intent, sub_intent):
+def write_learning_log(word, original_phrase, top_intent, sub_intent, action="learned"):
     log_message = (
-        f"Learned word: {word} | phrase: {original_phrase} | "
+        f"{action.capitalize()} word: {word} | phrase: {original_phrase} | "
         f"top_intent: {top_intent} | sub_intent: {sub_intent}"
     )
 
@@ -119,7 +128,35 @@ def appending_learning_entry(original_phrase, top_intent, sub_intent):
             if has_known_intent_word:
                 unrecognized_word_entry["observation"] += 1
             unrecognized_word_entry["updated_at"] = datetime.now().isoformat(timespec="seconds")
-            write_learning_log(word, original_phrase, top_intent, sub_intent)
+            write_learning_log(word, original_phrase, top_intent, sub_intent, action="updated")
+
+            #after updating the intent points, check whether the word mature enough to be added to the response database for faster access in the future
+            #mature threshold is 5 or more observation count, an intent has over 70% apperance in the associated intents
+            if unrecognized_word_entry["observation"] >= 5:
+                total_top_points = sum(unrecognized_word_entry["top_intent"].values())
+                #check each top_intent nominant and see if any of them has over 70% association with the word
+                for intent, points in unrecognized_word_entry["top_intent"].items():
+                    if total_top_points and points / total_top_points >= 0.7:
+                        if intent == "service":
+                            total_sub_points = sum(unrecognized_word_entry["sub_intent"].values())
+                            for sub_intent, sub_points in unrecognized_word_entry["sub_intent"].items():
+                                if total_sub_points and sub_points / total_sub_points >= 0.7:
+                                    write_to_response_database(word, intent, sub_intent)
+                                    write_learning_log(word, original_phrase, intent, sub_intent, action="promoted")
+                                    learned_entries.remove(unrecognized_word_entry)
+                                    with open(LEARNED_INTERACTIONS_FILE, "w", encoding="utf-8") as f:
+                                        for entry in learned_entries:
+                                            f.write(json.dumps(entry) + "\n")
+                                    return False
+                        else:
+                            write_to_response_database(word, intent, False)
+                            write_learning_log(word, original_phrase, intent, False, action="promoted")
+                            learned_entries.remove(unrecognized_word_entry)
+                            with open(LEARNED_INTERACTIONS_FILE, "w", encoding="utf-8") as f:
+                                for entry in learned_entries:
+                                    f.write(json.dumps(entry) + "\n")
+                            return False
+
         else:
             #returns a json entry of the new word
             unrecognized_word_entry = add_new_keyword(
@@ -129,7 +166,7 @@ def appending_learning_entry(original_phrase, top_intent, sub_intent):
                 observation=1 if has_known_intent_word else 0,
             )
             learned_entries.append(unrecognized_word_entry)
-            write_learning_log(word, original_phrase, top_intent, sub_intent)
+            write_learning_log(word, original_phrase, top_intent, sub_intent, action="learned")
 
     with open(LEARNED_INTERACTIONS_FILE, "w", encoding="utf-8") as f:
         for entry in learned_entries:
@@ -193,6 +230,7 @@ def train(sentence, top_intent, sub_intent=False):
         sub_intent = False
 
     appending_learning_entry(sentence, top_intent, sub_intent)
+        
 
     return {
         "sentence": sentence,
@@ -202,12 +240,44 @@ def train(sentence, top_intent, sub_intent=False):
     }
 
 def write_to_response_database(word, top_intent, sub_intent):
+    target_top_intent = top_intent
+    target_sub_intent = sub_intent
+
+    if top_intent == "greeting":
+        target_sub_intent = "message"
+    elif top_intent == "contact" and not sub_intent:
+        target_sub_intent = max(INTENT_KEYWORDS["contact"], key=lambda key: len(INTENT_KEYWORDS["contact"][key]))
+    elif top_intent == "operation" and not sub_intent:
+        target_sub_intent = max(INTENT_KEYWORDS["operation"], key=lambda key: len(INTENT_KEYWORDS["operation"][key]))
+
+    keyword_bucket = INTENT_KEYWORDS[target_top_intent].setdefault(target_sub_intent, [])
+    if word not in keyword_bucket:
+        keyword_bucket.append(word)
+
+        with open(RESPONSE_DATABASE_FILE, "r", encoding="utf-8") as f:
+            file_text = f.read()
+
+        keyword_tree = ast.literal_eval(
+            file_text.split("INTENT_KEYWORDS = ", 1)[1].split("\n\nSTOP_WORDS =", 1)[0]
+        )
+
+        db_bucket = keyword_tree[target_top_intent].setdefault(target_sub_intent, [])
+        if word not in db_bucket:
+            db_bucket.append(word)
+
+            old_block = "INTENT_KEYWORDS = " + file_text.split("INTENT_KEYWORDS = ", 1)[1].split("\n\nSTOP_WORDS =", 1)[0]
+            new_block = "INTENT_KEYWORDS = " + repr(keyword_tree)
+            file_text = file_text.replace(old_block, new_block, 1)
+
+            with open(RESPONSE_DATABASE_FILE, "w", encoding="utf-8") as f:
+                f.write(file_text)
+
     return 0
 
 if __name__ == "__main__":
     from chatbot import get_intent
 
-    training_files = ("training_sentence.txt", "training_sentences.txt")
+    training_files = ("training_sentences.txt",)
     trained_count = 0
     skipped_count = 0
     training_file = None
@@ -221,7 +291,7 @@ if __name__ == "__main__":
             continue
 
     if training_file is None:
-        print("No training file found. Expected training_sentence.txt or training_sentences.txt")
+        print("No training file found. Expected training_sentences.txt")
     else:
         with open(training_file, "r", encoding="utf-8") as f:
             for raw_line in f:

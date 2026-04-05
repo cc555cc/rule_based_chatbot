@@ -491,9 +491,42 @@ def get_next_weekday_date(day_name):
         days_ahead = (target_day - today.weekday()) % 7
 
         return today + timedelta(days=days_ahead)
-    
+
+def build_guess_message(top_intent, sub_intent):
+    if top_intent == "service":
+        if sub_intent == "reservation":
+            return "I am guessing you are asking for a reservation."
+        if sub_intent == "menu":
+            return "I am guessing you want the restaurant menu."
+        if sub_intent == "delivery":
+            return "I am guessing you want restaurant delivery."
+
+    if top_intent == "contact":
+        return "I am guessing you want the restaurant contact information."
+    if top_intent == "operation":
+        if sub_intent == "address":
+            return "I am guessing you want the restaurant address."
+        if sub_intent == "time":
+            return "I am guessing you are asking about the restaurant hours."
+        return "I am guessing you want restaurant information."
+    if top_intent == "greeting":
+        return "I am guessing you are greeting the restaurant."
+
+    return "I am guessing what you want based on what I learned before."
+
+def format_guessed_response(response, top_intent, sub_intent):
+    guess_message = build_guess_message(top_intent, sub_intent)
+
+    if isinstance(response, list) and response:
+        return [f"{guess_message}\n{response[0]}"] + response[1:]
+
+    if isinstance(response, str):
+        return f"{guess_message}\n{response}"
+
+    return response
+
 #generate response based on the extracted intent for
-def get_response(original_phrase, intents):
+def get_response(original_phrase, intents, guessed_from_learning=False):
     top_intent, sub_intent = intents
     word_list = parse_phrase(original_phrase)
 
@@ -501,31 +534,31 @@ def get_response(original_phrase, intents):
     if "reservation" in intents: 
         response = extract_reserve_detail(word_list)
         appending_learning_entry(original_phrase, top_intent, sub_intent)
-        return response
+        return format_guessed_response(response, top_intent, sub_intent) if guessed_from_learning else response
     elif "menu" in intents:
         response = ["Please check out our menu.", "resource/menu.png"]
         appending_learning_entry(original_phrase, top_intent, sub_intent)
-        return response
+        return format_guessed_response(response, top_intent, sub_intent) if guessed_from_learning else response
     elif "delivery" in intents:
         response = extract_delivery_detail(word_list)
         appending_learning_entry(original_phrase, top_intent, sub_intent)
-        return response
+        return format_guessed_response(response, top_intent, sub_intent) if guessed_from_learning else response
     else:
         if top_intent == "greeting":
             response = random.choice(BUSINESS_INFO["greeting"]["responses"])
             appending_learning_entry(original_phrase, top_intent, sub_intent)
-            return response
+            return format_guessed_response(response, top_intent, sub_intent) if guessed_from_learning else response
         elif top_intent == "operation":
             response = BUSINESS_INFO["operation"]["response"]
             appending_learning_entry(original_phrase, top_intent, sub_intent)
-            return response
+            return format_guessed_response(response, top_intent, sub_intent) if guessed_from_learning else response
         elif top_intent == "contact":
             response = BUSINESS_INFO["contact"]["response"]
             appending_learning_entry(original_phrase, top_intent, sub_intent)
-            return response
+            return format_guessed_response(response, top_intent, sub_intent) if guessed_from_learning else response
         else:
             predicted_intents = predict_intent_from_learned_entries(original_phrase)
             if predicted_intents:
-                return get_response(original_phrase, predicted_intents)
+                return get_response(original_phrase, predicted_intents, guessed_from_learning=True)
 
     return "Sorry, I do not understand that yet."
