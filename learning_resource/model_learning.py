@@ -12,6 +12,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from learning_resource.response_database import STOP_WORDS,INTENT_KEYWORDS
+from text_normalization import lemmatize_word
 
 BASE_DIR = CURRENT_DIR
 RESPONSE_DATABASE_FILE = BASE_DIR / "response_database.py"
@@ -41,7 +42,7 @@ LEARNED_INTERACTIONS_FILE = BASE_DIR / "learned_interactions.jsonl"
 LEARNING_LOG_FILE = BASE_DIR / "learning_log.txt"
 
 KNOWN_INTENT_WORDS = {
-    keyword
+    lemmatize_word(keyword)
     for category in INTENT_KEYWORDS.values()
     for keyword_list in category.values()
     for keyword in keyword_list
@@ -66,9 +67,12 @@ def normalize_learning_tokens(words):
         elif word in STOP_WORDS:
             continue
         else: 
-            normalize_tokens.append(word)
+            normalize_tokens.append(lemmatize_word(word))
     
     return normalize_tokens
+
+def learning_candidates_from_phrase(phrase):
+    return normalize_learning_tokens(parse_learning_phrase(phrase))
 
 def parse_learning_phrase(phrase):
     parse_list = []
@@ -91,9 +95,9 @@ def write_learning_log(word, original_phrase, top_intent, sub_intent, action="le
 
 #called by chatbot.py to learn unrecognized word
 def appending_learning_entry(original_phrase, top_intent, sub_intent):
-    parsed_phrase = parse_learning_phrase(original_phrase)
+    parsed_phrase = learning_candidates_from_phrase(original_phrase)
     has_known_intent_word = any(word in KNOWN_INTENT_TOKENS for word in parsed_phrase)
-    normalized_phrase = normalize_learning_tokens(parse_learning_phrase(original_phrase))
+    normalized_phrase = learning_candidates_from_phrase(original_phrase)
     learned_entries = load_learned_entries()
 
     if not top_intent:
@@ -193,7 +197,7 @@ def add_new_keyword(word, top_intent, sub_intent, observation=0):
     return json_entry
 
 def predict_intent_from_learned_entries(current_phrase):
-    normalized_phrase = normalize_learning_tokens(parse_learning_phrase(current_phrase))
+    normalized_phrase = learning_candidates_from_phrase(current_phrase)
     associated_top_intent_points = {}
     associated_sub_intent_points = {}
     learned_entries = load_learned_entries()

@@ -1,4 +1,5 @@
 {"word": "see", "top_intent": {"service": 1, "greeting": 1}, "sub_intent": {"menu": 1}, "observation": 2, "updated_at": "2026-04-05T15:04:23"}
+{"word": "dish", "top_intent": {"service": 2}, "sub_intent": {"menu": 2}, "updated_at": "2026-03-31T11:05:26"}
 {"word": "show", "top_intent": {"service": 1, "greeting": 1}, "sub_intent": {"menu": 1}, "observation": 2, "updated_at": "2026-04-05T15:04:23"}
 {"word": "available", "top_intent": {"service": 1}, "sub_intent": {"menu": 1}, "observation": 1, "updated_at": "2026-04-05T15:04:22"}
 {"word": "look", "top_intent": {"greeting": 1}, "sub_intent": {}, "observation": 1, "updated_at": "2026-04-05T15:04:22"}

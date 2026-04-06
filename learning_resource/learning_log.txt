@@ -247,3 +247,45 @@ Learned word: if | phrase: Welcome, where are you located if I am coming from Mi
 Learned word: am | phrase: Welcome, where are you located if I am coming from Midtown? | top_intent: greeting | sub_intent: False
 Learned word: coming | phrase: Welcome, where are you located if I am coming from Midtown? | top_intent: greeting | sub_intent: False
 Learned word: midtown | phrase: Welcome, where are you located if I am coming from Midtown? | top_intent: greeting | sub_intent: False
+Learned word: show | phrase: what show me the dishes | top_intent: service | sub_intent: menu
+Learned word: dishes | phrase: what show me the dishes | top_intent: service | sub_intent: menu
+Learned word: dishes | phrase: dishes | top_intent: service | sub_intent: menu
+Learned word: see | phrase: I would like to see the menu please | top_intent: service | sub_intent: menu
+Learned word: see | phrase: I would like to see what I can order | top_intent: service | sub_intent: menu
+Learned word: order | phrase: I would like to see what I can order | top_intent: service | sub_intent: menu
+Learned word: order | phrase: can I order a dish | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: can I order a dish | top_intent: service | sub_intent: menu
+Learned word: show | phrase: show dish | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: show dish | top_intent: service | sub_intent: menu
+Learned word: see | phrase: I would like to see the menu | top_intent: service | sub_intent: menu
+Learned word: see | phrase: can I see what I can order | top_intent: service | sub_intent: menu
+Learned word: order | phrase: can I see what I can order | top_intent: service | sub_intent: menu
+Learned word: order | phrase: I would like to order a dish | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: I would like to order a dish | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: dish | top_intent: service | sub_intent: menu
+Learned word: see | phrase: can I see the menu | top_intent: service | sub_intent: menu
+Learned word: see | phrase: see food dish | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: see food dish | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: menu dish | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: get dish | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: menu dish | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: dish | top_intent: service | sub_intent: menu
+Learned word: see | phrase: see menu dishes | top_intent: service | sub_intent: menu
+Learned word: dishes | phrase: see menu dishes | top_intent: service | sub_intent: menu
+Learned word: see | phrase: see menu dish | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: see menu dish | top_intent: service | sub_intent: menu
+Learned word: see | phrase: see menu dish | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: see menu dish | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: dish | top_intent: service | sub_intent: menu
+Learned word: see | phrase: see menu dishes | top_intent: service | sub_intent: menu
+Learned word: dishes | phrase: see menu dishes | top_intent: service | sub_intent: menu
+Learned word: dishes | phrase: menu dishes | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: menu dish | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: dish | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: menu dish | top_intent: service | sub_intent: menu
+Learned word: see | phrase: see menu dish | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: see menu dish | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: dish | top_intent: service | sub_intent: menu
+Learned word: see | phrase: see menu dishes | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: see menu dishes | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: dish | top_intent: service | sub_intent: menu

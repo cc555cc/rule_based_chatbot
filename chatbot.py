@@ -1,8 +1,8 @@
 from learning_resource.response_database import BUSINESS_INFO, INTENT_KEYWORDS, MENU_ITEMS, RESERVATION_FIELD_KEYWORDS, NUMBER_WORDS
 from booking_store import save_booking, save_delivery
 from datetime import date, timedelta
-from nltk.stem import WordNetLemmatizer
 from learning_resource.model_learning import appending_learning_entry, predict_intent_from_learned_entries
+from text_normalization import lemmatize_word, lemmatize_words
 import random
 
 
@@ -11,16 +11,6 @@ MONTH_NAMES = {
     "july", "august", "september", "october", "november", "december",
 }
 NAME_PREFIX_WORDS = {"the", "a", "an", "name"}
-
-lemmatizer = WordNetLemmatizer()
-
-def lemmatize_word(word):
-    noun_form = lemmatizer.lemmatize(word, pos="n")
-    verb_form = lemmatizer.lemmatize(noun_form, pos="v")
-    return verb_form
-
-def lemmatize_words(word_list):
-    return [lemmatize_word(word) for word in word_list]
 
 
 #called by UI
