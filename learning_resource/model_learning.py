@@ -40,6 +40,7 @@ def load_learned_entries():
 
 LEARNED_INTERACTIONS_FILE = BASE_DIR / "learned_interactions.jsonl"
 LEARNING_LOG_FILE = BASE_DIR / "learning_log.txt"
+NON_LEARNABLE_TOP_INTENTS = {"greeting"}
 
 KNOWN_INTENT_WORDS = {
     lemmatize_word(keyword)
@@ -101,6 +102,10 @@ def appending_learning_entry(original_phrase, top_intent, sub_intent):
     learned_entries = load_learned_entries()
 
     if not top_intent:
+        return
+
+    # Keep greeting detection hand-curated so unrelated phrases do not pollute it.
+    if top_intent in NON_LEARNABLE_TOP_INTENTS:
         return
 
     if top_intent != "service":
@@ -218,6 +223,12 @@ def predict_intent_from_learned_entries(current_phrase):
                         associated_sub_intent_points[intent] = points
 
     if associated_top_intent_points:
+        for intent in NON_LEARNABLE_TOP_INTENTS:
+            associated_top_intent_points.pop(intent, None)
+
+        if not associated_top_intent_points:
+            return False
+
         predicted_top_intent = max(associated_top_intent_points, key=associated_top_intent_points.get)
 
         if predicted_top_intent == "service" and associated_sub_intent_points:
