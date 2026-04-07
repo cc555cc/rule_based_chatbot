@@ -17,6 +17,11 @@ __pycache__/
 .env
 .env.*
 
+# Local learning artifacts
+learning_resource/learned_interactions.jsonl
+learning_resource/learning_log.txt
+training_sentences.txt
+
 # Node dependencies and build caches
 node_modules/
 dist/
