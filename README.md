@@ -2,6 +2,8 @@
 
 This project is a restaurant chatbot that uses a rule-based intent system instead of a trained large language model. Its behavior is driven by keyword dictionaries, branching logic, and field extraction rules defined in `chatbot.py` and `response_database.py`.
 
+It now also includes a lightweight self-learning layer. The chatbot stores successful interactions in `learning_resource/learned_interactions.jsonl` and can reuse similar past phrasing to recover an intent when the fixed keyword rules alone would otherwise fail.
+
 ## How The Chatbot Works
 
 At a high level, each user message goes through this pipeline:
@@ -69,7 +71,7 @@ The chatbot follows this branching logic:
 
 1. Parse the message into words.
 2. Lemmatize the words.
-3. Search for a top-level intent using `INTENT_KEYWORDS` from `response_database.py`.
+3. Search for a top-level intent using `INTENT_KEYWORDS` from `learning_resource/response_database.py`.
 4. If no direct top-level intent is found, check for reservation-specific signals using `has_reservation_signals()` in `chatbot.py`.
 5. If the top-level intent is `service`, search for the matching sub-intent.
 6. Based on the chosen intent, route the message to the correct response path:
@@ -125,7 +127,7 @@ If enough information is present, the delivery is saved and a confirmation messa
 
 ## Keyword Database
 
-The chatbot's rules are largely controlled by constants in `response_database.py`:
+The chatbot's rules are largely controlled by constants in `learning_resource/response_database.py`:
 
 - `INTENT_KEYWORDS`: keywords used to recognize intents and sub-intents
 - `RESERVATION_FIELD_KEYWORDS`: keywords that help detect reservation details
@@ -151,5 +153,25 @@ This chatbot combines two main ideas:
 
 - `Lemmatization` to normalize words before matching
 - `Rule-based decision flow` to route the message and extract details
+- `Lightweight self-learning memory` to reuse successful past phrasing
 
 Together, these methods let the chatbot handle common restaurant questions and simple booking or delivery requests in a predictable way.
+
+## Self-Learning Layer
+
+The self-learning feature is implemented in `learning_store.py`.
+
+What it does:
+
+- stores successful interactions with their detected intent and cleaned tokens
+- saves them to `learning_resource/learned_interactions.jsonl`
+- checks that memory store when the main rule system does not find an intent
+- reuses the closest learned match if the similarity score is high enough
+
+What it does not do:
+
+- it does not train a machine learning model
+- it does not automatically invent brand new business knowledge
+- it only learns from successful intent classifications that already happened in the chatbot
+
+This makes the bot more adaptive while keeping the project safely inside the same rule-based architecture.

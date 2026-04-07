@@ -1,7 +1,8 @@
-from response_database import BUSINESS_INFO, INTENT_KEYWORDS, MENU_ITEMS, RESERVATION_FIELD_KEYWORDS, NUMBER_WORDS
+from learning_resource.response_database import BUSINESS_INFO, INTENT_KEYWORDS, MENU_ITEMS, RESERVATION_FIELD_KEYWORDS, NUMBER_WORDS
 from booking_store import save_booking, save_delivery
 from datetime import date, timedelta
-from nltk.stem import WordNetLemmatizer
+from learning_resource.model_learning import appending_learning_entry, predict_intent_from_learned_entries
+from text_normalization import lemmatize_word, lemmatize_words
 import random
 
 
@@ -11,31 +12,13 @@ MONTH_NAMES = {
 }
 NAME_PREFIX_WORDS = {"the", "a", "an", "name"}
 
-lemmatizer = WordNetLemmatizer()
-
-def lemmatize_word(word):
-    noun_form = lemmatizer.lemmatize(word, pos="n")
-    verb_form = lemmatizer.lemmatize(noun_form, pos="v")
-    return verb_form
-
-def lemmatize_words(word_list):
-    return [lemmatize_word(word) for word in word_list]
-
 
 #called by UI
 def generate_response(phrase):
     word_list = parse_phrase(phrase)
     intents = get_intent(phrase)
 
-    #query is asking about service, extract detail
-    if "reservation" in intents: 
-        return extract_reserve_detail(word_list)
-    elif "menu" in intents:
-        return ["Please check out our menu.", "resource/menu.png"]
-    elif "delivery" in intents:
-        return extract_delivery_detail(word_list)
-
-    return get_response(intents)
+    return get_response(phrase, intents)
 
 def parse_phrase(phrase):
     parse_list = []
@@ -66,12 +49,21 @@ def get_intent(phrase):
     return [top_intent, sub_intent]
 
 def top_level_intent(word_list):
+    greeting_detected = False
+
     for word in word_list:
         for category_name, subcategories in INTENT_KEYWORDS.items():
             for keywords in subcategories.values():
                 normalized_keywords = [lemmatize_word(k) for k in keywords]
                 if word in normalized_keywords:
+                    if category_name == "greeting":
+                        greeting_detected = True
+                        continue
+
                     return category_name
+
+    if greeting_detected:
+        return "greeting"
 
     return False
     
@@ -167,7 +159,14 @@ def extract_time(word_list, i, word, time_keywords):
 
     #check if the word is likely to be the time based on the presence of keywords that typically appear before or after the time in a reservation query
     if word in time_keywords["after"]:
-        return is_time_value(word_list[i + 1:i + 3]) if i + 1 < len(word_list) else ""
+        if i + 1 < len(word_list):
+            next_word = is_time_value(word_list[i + 1])
+            if next_word:
+                return next_word
+
+            return is_time_value(word_list[i + 1:i + 3])
+        else:
+            return ""
 
     #handle special cases where the time is expressed in a more casual way, such as "noon" or "midnight"
     if word in time_keywords["noon"]:
@@ -491,16 +490,74 @@ def get_next_weekday_date(day_name):
         days_ahead = (target_day - today.weekday()) % 7
 
         return today + timedelta(days=days_ahead)
-    
-#generate response based on the extracted intent
-def get_response(intents):
-    top_intent, sub_intent = intents
 
+def build_guess_message(top_intent, sub_intent):
+    if top_intent == "service":
+        if sub_intent == "reservation":
+            return "I am guessing you are asking for a reservation."
+        if sub_intent == "menu":
+            return "I am guessing you want the restaurant menu."
+        if sub_intent == "delivery":
+            return "I am guessing you want restaurant delivery."
+
+    if top_intent == "contact":
+        return "I am guessing you want the restaurant contact information."
+    if top_intent == "operation":
+        if sub_intent == "address":
+            return "I am guessing you want the restaurant address."
+        if sub_intent == "time":
+            return "I am guessing you are asking about the restaurant hours."
+        return "I am guessing you want restaurant information."
     if top_intent == "greeting":
-        return random.choice(BUSINESS_INFO["greeting"]["responses"])
-    elif top_intent == "operation":
-        return BUSINESS_INFO["operation"]["response"]
-    elif top_intent == "contact":
-        return BUSINESS_INFO["contact"]["response"]
+        return "I am guessing you are greeting the restaurant."
+
+    return "I am guessing what you want based on what I learned before."
+
+def format_guessed_response(response, top_intent, sub_intent):
+    guess_message = build_guess_message(top_intent, sub_intent)
+
+    if isinstance(response, list) and response:
+        return [f"{guess_message}\n{response[0]}"] + response[1:]
+
+    if isinstance(response, str):
+        return f"{guess_message}\n{response}"
+
+    return response
+
+#generate response based on the extracted intent for
+def get_response(original_phrase, intents, guessed_from_learning=False):
+    top_intent, sub_intent = intents
+    word_list = parse_phrase(original_phrase)
+
+    #query is asking about service, extract detail
+    if "reservation" in intents: 
+        response = extract_reserve_detail(word_list)
+        appending_learning_entry(original_phrase, top_intent, sub_intent)
+        return format_guessed_response(response, top_intent, sub_intent) if guessed_from_learning else response
+    elif "menu" in intents:
+        response = ["Please check out our menu.", "resource/menu.png"]
+        appending_learning_entry(original_phrase, top_intent, sub_intent)
+        return format_guessed_response(response, top_intent, sub_intent) if guessed_from_learning else response
+    elif "delivery" in intents:
+        response = extract_delivery_detail(word_list)
+        appending_learning_entry(original_phrase, top_intent, sub_intent)
+        return format_guessed_response(response, top_intent, sub_intent) if guessed_from_learning else response
+    else:
+        if top_intent == "greeting":
+            response = random.choice(BUSINESS_INFO["greeting"]["responses"])
+            appending_learning_entry(original_phrase, top_intent, sub_intent)
+            return format_guessed_response(response, top_intent, sub_intent) if guessed_from_learning else response
+        elif top_intent == "operation":
+            response = BUSINESS_INFO["operation"]["response"]
+            appending_learning_entry(original_phrase, top_intent, sub_intent)
+            return format_guessed_response(response, top_intent, sub_intent) if guessed_from_learning else response
+        elif top_intent == "contact":
+            response = BUSINESS_INFO["contact"]["response"]
+            appending_learning_entry(original_phrase, top_intent, sub_intent)
+            return format_guessed_response(response, top_intent, sub_intent) if guessed_from_learning else response
+        else:
+            predicted_intents = predict_intent_from_learned_entries(original_phrase)
+            if predicted_intents:
+                return get_response(original_phrase, predicted_intents, guessed_from_learning=True)
 
     return "Sorry, I do not understand that yet."

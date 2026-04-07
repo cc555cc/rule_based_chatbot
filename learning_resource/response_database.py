@@ -1,10 +1,9 @@
 """
 Predefined response database for the rule-based chatbot.
 
-Each item represents one intent category:
-- intent: the name of the user intent
-- patterns: words or phrases to look for in the user's message
-- responses: possible replies the chatbot can return
+This file stores the clean minimal keyword baseline used for testing the
+learning system. Restore it to response_database.py when you want to remove
+promoted or experimental keywords.
 """
 
 INTENT_KEYWORDS = {
@@ -73,8 +72,6 @@ INTENT_KEYWORDS = {
             "eat",
             "food",
             "meal",
-            "dish",
-            "dishes",
             "drink",
             "drinks",
             "special",
@@ -96,6 +93,61 @@ INTENT_KEYWORDS = {
         ],
     },
 }
+
+STOP_WORDS = [
+    "a",
+    "an",
+    "and",
+    "are",
+    "as",
+    "at",
+    "be",
+    "but",
+    "by",
+    "can",
+    "could",
+    "do",
+    "for",
+    "from",
+    "get",
+    "give",
+    "has",
+    "have",
+    "help",
+    "how",
+    "i",
+    "in",
+    "is",
+    "it",
+    "like",
+    "me",
+    "my",
+    "of",
+    "on",
+    "or",
+    "our",
+    "please",
+    "tell",
+    "than",
+    "that",
+    "the",
+    "their",
+    "there",
+    "this",
+    "to",
+    "us",
+    "want",
+    "was",
+    "we",
+    "what",
+    "when",
+    "where",
+    "which",
+    "with",
+    "would",
+    "you",
+    "your",
+]
 
 RESERVATION_FIELD_KEYWORDS = {
     "name": {

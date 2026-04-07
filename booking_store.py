@@ -4,11 +4,13 @@ from pathlib import Path
 
 
 BASE_DIR = Path(__file__).resolve().parent
-BOOKING_FILE = BASE_DIR / "bookings.jsonl"
-DELIVERY_FILE = BASE_DIR / "deliveries.jsonl"
+SERVICE_DATABASE_DIR = BASE_DIR / "service_database"
+BOOKING_FILE = SERVICE_DATABASE_DIR / "bookings.jsonl"
+DELIVERY_FILE = SERVICE_DATABASE_DIR / "deliveries.jsonl"
 
 
 def save_booking(name, party_size, booking_time, booking_date, file_path=BOOKING_FILE):
+    SERVICE_DATABASE_DIR.mkdir(parents=True, exist_ok=True)
     booking = {
         "name": name,
         "party_size": party_size,
@@ -24,6 +26,7 @@ def save_booking(name, party_size, booking_time, booking_date, file_path=BOOKING
 
 
 def save_delivery(name, address, order=None, total=0, file_path=DELIVERY_FILE):
+    SERVICE_DATABASE_DIR.mkdir(parents=True, exist_ok=True)
     delivery = {
         "name": name,
         "address": address,
