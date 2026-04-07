@@ -1,177 +1,279 @@
 # Rule-Based Restaurant Chatbot
 
-This project is a restaurant chatbot that uses a rule-based intent system instead of a trained large language model. Its behavior is driven by keyword dictionaries, branching logic, and field extraction rules defined in `chatbot.py` and `response_database.py`.
+This project is a rule-based restaurant chatbot with a lightweight self-learning layer. It does not use a large language model. Instead, it generates replies by combining:
 
-It now also includes a lightweight self-learning layer. The chatbot stores successful interactions in `learning_resource/learned_interactions.jsonl` and can reuse similar past phrasing to recover an intent when the fixed keyword rules alone would otherwise fail.
+- keyword-based intent detection
+- branching response logic
+- reservation and delivery field extraction
+- a small learned-memory system for previously seen words and phrasing
 
-## How The Chatbot Works
+## Major Chatbot Functions
 
-At a high level, each user message goes through this pipeline:
+### How The Chatbot Generates A Response
 
-1. The message is cleaned and split into words.
-2. Words are normalized with lemmatization.
-3. The chatbot chooses a top-level intent such as `greeting`, `operation`, `contact`, or `service`.
-4. If the top-level intent is `service`, it chooses a sub-intent such as `reservation`, `menu`, or `delivery`.
-5. If needed, the chatbot extracts details from the message, such as reservation name, date, time, party size, or delivery address.
-6. It returns a fixed response, a menu image, or a booking/delivery confirmation.
+The chatbot follows a decision-tree-like flow based on a top intent and, when needed, a sub-intent.
 
-## Method 1: Lemmatization
+The flow is:
 
-Lemmatization is implemented with NLTK's `WordNetLemmatizer` in `chatbot.py`.
+1. The UI sends the user message to `server.py`.
+2. `server.py` calls `generate_response()` in `chatbot.py`.
+3. `chatbot.py` breaks the sentence into tokens with `parse_phrase()`.
+4. `text_normalization.py` lemmatizes the tokens so different word forms can match the same rule.
+5. `chatbot.py` looks for a top intent by comparing the normalized words against predefined keyword groups in `learning_resource/response_database.py`.
+6. If a matching keyword is found, the chatbot returns the category where that keyword belongs, such as `greeting`, `operation`, `contact`, or `service`.
+7. If the top intent is `service`, the chatbot then looks for a service sub-intent such as `reservation`, `menu`, or `delivery`.
+8. Based on the detected intent, the chatbot generates a response:
 
-### What it does
+- fixed business response for greeting, contact, or operation questions
+- menu response with text and `resource/menu.png`
+- reservation extraction and confirmation
+- delivery extraction and confirmation
 
-Lemmatization reduces different forms of a word to a simpler base form so the chatbot can match more user inputs with fewer keywords.
+For reservation and delivery queries, the chatbot tries to extract the required details from the sentence. If enough information is missing, it returns a generic help response instead of a confirmation.
 
-Examples:
+If the rule system does not find an intent, the chatbot then checks the learned interaction store in `learning_resource/model_learning.py`. This is a more expensive fallback because it looks through previously learned unfamiliar words. If that still does not produce an intent, the chatbot returns the standard fallback response.
 
-- `booking` can be reduced toward `book`
-- `delivered` can be reduced toward `deliver`
-- `drinks` can be reduced toward `drink`
+### How The Chatbot Learns New Words
 
-### How it is implemented
+The chatbot learns unfamiliar words when they appear together with words that already reveal a known intent.
 
-The code defines:
+The idea is:
 
-- `lemmatize_word(word)` in `chatbot.py`
-- `lemmatize_words(word_list)` in `chatbot.py`
+- an unfamiliar word is stored with the intent it appeared with
+- each future appearance adds more evidence for that intent
+- over time, the chatbot estimates which intent that unfamiliar word most strongly belongs to
 
-The implementation lemmatizes each token twice:
+This logic is implemented mainly in `learning_resource/model_learning.py`.
 
-- first as a noun
-- then as a verb
+#### Appending New Words
 
-This helps the chatbot normalize common restaurant-related words before intent matching.
+`appending_learning_entry()` is called with:
 
-### Where it is used
+- the original phrase
+- the detected top intent
+- the detected sub-intent
 
-After the user message is parsed, `get_intent()` creates `normalized_words` by calling `lemmatize_words(...)` in `chatbot.py`. Those normalized words are then compared against normalized keyword lists inside:
+It then:
 
-- `top_level_intent()` in `chatbot.py`
-- `second_level_intent()` in `chatbot.py`
+1. Parses and normalizes the phrase.
+2. Checks whether the phrase contains a known intent word.
+3. Looks at each normalized word that is not already a known keyword.
+4. If the word is already in `learned_interactions.jsonl`, it adds points to the matching top intent and sub-intent counts.
+5. If the word is not already stored, it creates a new learned entry for that word.
+6. It updates the observation count when the phrase also contains known intent words.
 
-### Why it matters
+#### Promotion To The Main Rule Database
 
-Without lemmatization, the chatbot would need many more keyword variants. With lemmatization, it can recognize related word forms using a smaller keyword dictionary.
+After a learned word has been observed enough times, the chatbot may promote it into the main keyword database for faster future matching.
 
-## Method 2: Decision Tree Style Logic
+The promotion conditions in the current code are:
 
-This project does not use a trained machine learning decision tree classifier. Instead, it uses a hand-written decision flow that behaves like a small decision tree: the program checks a series of conditions and branches into the next step based on what it finds.
+- observation count is at least `5`
+- one top intent has at least `70%` of the accumulated points for that word
+- if the top intent is `service`, one sub-intent also has at least `70%` of the sub-intent points
 
-That branching flow is mainly implemented in:
+When those conditions are met, the word is written into `learning_resource/response_database.py` so the main rule system can match it directly next time.
 
-- `generate_response()` in `chatbot.py`
-- `get_intent()` in `chatbot.py`
-- `top_level_intent()` in `chatbot.py`
-- `second_level_intent()` in `chatbot.py`
+#### Guessing Intent From Learned Words
 
-### Decision flow
+If the normal rule-based system fails to detect an intent, the chatbot tries to guess one from the learned interaction file.
 
-The chatbot follows this branching logic:
+It does this by:
 
-1. Parse the message into words.
-2. Lemmatize the words.
-3. Search for a top-level intent using `INTENT_KEYWORDS` from `learning_resource/response_database.py`.
-4. If no direct top-level intent is found, check for reservation-specific signals using `has_reservation_signals()` in `chatbot.py`.
-5. If the top-level intent is `service`, search for the matching sub-intent.
-6. Based on the chosen intent, route the message to the correct response path:
-   - reservation extraction
-   - delivery extraction
-   - menu image response
-   - fixed business information response
-   - fallback response
+1. Normalizing the current phrase.
+2. Checking whether any of its words appear in `learned_interactions.jsonl`.
+3. Adding up the stored top-intent and sub-intent points for matching learned words.
+4. Choosing the intent with the highest total score.
 
-### Why this is like a decision tree
+The highest-scoring accumulated intent is treated as the most likely user intent, and the chatbot then generates a response from that guessed intent.
 
-It is called "decision tree style" because the chatbot makes one decision after another:
+## Response And Learning Flow
 
-- first `What broad category is this?`
-- then `What specific service is it about?`
-- then `Do we have enough details to complete the action?`
+When a user sends a message, the system works in this order:
 
-Each answer determines the next branch in the code.
+1. `server.py` receives the API request from the UI.
+2. `chatbot.py` parses the message and decides the intent.
+3. `text_normalization.py` lemmatizes words so related terms map to the same base form.
+4. `learning_resource/response_database.py` provides the rule dictionaries and business data used for matching.
+5. `chatbot.py` generates a response, menu reply, reservation confirmation, or delivery confirmation.
+6. `booking_store.py` saves bookings and deliveries to JSONL files when needed.
+7. `learning_resource/model_learning.py` stores useful learned words and can reuse them later when the fixed rules miss an intent.
 
-### Reservation branch
+## Project Structure By Importance
 
-If the service is a reservation, the chatbot tries to extract:
+### 1. `chatbot.py`
 
-- customer name
-- party size
-- date
-- time
+This is the core chatbot engine.
 
-This logic is handled by helper functions such as:
+It is responsible for:
 
-- `extract_name()` in `chatbot.py`
-- `extract_party_size()` in `chatbot.py`
-- `extract_time()` in `chatbot.py`
-- `extract_date()` in `chatbot.py`
+- parsing user text
+- detecting top-level and sub-level intents
+- extracting reservation and delivery details
+- generating the final response
+- asking the learning layer for help when normal rules fail
 
-If all fields are found, the booking is saved. Otherwise, the chatbot returns the reservation help message from `BUSINESS_INFO`.
+This is the most important file for response generation.
 
-### Delivery branch
+### 2. `text_normalization.py`
 
-If the service is delivery, the chatbot tries to extract:
+This file normalizes words before intent matching.
 
-- customer name
-- address
-- ordered menu items
+It provides:
 
-This is handled by:
+- `lemmatize_word()`
+- `lemmatize_words()`
 
-- `extract_delivery_name()` in `chatbot.py`
-- `extract_delivery_address()` in `chatbot.py`
-- `extract_delivery_order()` in `chatbot.py`
+This helps the chatbot treat related words like `booking`, `booked`, and `book` more consistently.
 
-If enough information is present, the delivery is saved and a confirmation message is returned.
+### 3. `learning_resource/`
 
-## Keyword Database
+This folder contains the rule database and the self-learning system.
 
-The chatbot's rules are largely controlled by constants in `learning_resource/response_database.py`:
+#### `learning_resource/response_database.py`
 
-- `INTENT_KEYWORDS`: keywords used to recognize intents and sub-intents
-- `RESERVATION_FIELD_KEYWORDS`: keywords that help detect reservation details
-- `NUMBER_WORDS`: written numbers such as `one`, `two`, and `three`
-- `MENU_ITEMS`: menu names and prices
-- `BUSINESS_INFO`: fixed business responses and help text
+This is the main rule database used by the chatbot.
 
-This means most behavior changes can be made by editing the keyword lists and response dictionaries without changing the core chatbot flow.
+It stores:
 
-## Important Clarification For Teammates
+- `INTENT_KEYWORDS`
+- `RESERVATION_FIELD_KEYWORDS`
+- `NUMBER_WORDS`
+- `MENU_ITEMS`
+- `BUSINESS_INFO`
+- stop words used by the learning layer
 
-If you describe this system in a report or presentation, the most accurate wording is:
+This file is critical because it defines most of the chatbot's vocabulary and fixed responses.
+
+#### `learning_resource/model_learning.py`
+
+This is the lightweight learning layer.
+
+It is responsible for:
+
+- storing learned unknown words
+- updating observation counts
+- predicting intents from learned entries when rule matching fails
+- writing promoted keywords back into the response database
+- logging learning activity
+
+This is the most important file for learning new words.
+
+#### `learning_resource/learned_interactions.jsonl`
+
+This stores learned words and their observed intent associations.
+
+The chatbot reads this file when it tries to recover an intent that the fixed rules did not catch.
+
+#### `learning_resource/learning_log.txt`
+
+This is a plain-text log of learning activity such as:
+
+- new learned words
+- updated learned words
+- promoted learned words
+
+It is useful for debugging the learning system.
+
+#### `learning_resource/response_database_minimal.py`
+
+This appears to be a smaller or alternate database variant. It is not part of the main runtime path used by `chatbot.py`.
+
+#### `learning_resource/__init__.py`
+
+This makes `learning_resource` importable as a Python package.
+
+#### `learning_resource/__pycache__/`
+
+This contains generated Python cache files and is not part of the chatbot logic.
+
+### 4. `server.py`
+
+This is the backend HTTP server for the chatbot.
+
+It:
+
+- listens on `127.0.0.1:8000`
+- accepts `POST /api/chat`
+- passes the message to `chatbot.py`
+- returns the chatbot reply as JSON
+
+Without this file, the UI cannot talk to the chatbot engine.
+
+### 5. `booking_store.py`
+
+This file saves successful reservation and delivery data.
+
+It provides:
+
+- `save_booking()`
+- `save_delivery()`
+
+These functions write structured JSON lines into the service database files.
+
+### 6. `service_database/`
+
+This folder stores service records created by chatbot actions.
+
+#### `service_database/bookings.jsonl`
+
+Stores saved reservation records.
+
+#### `service_database/deliveries.jsonl`
+
+Stores saved delivery records.
+
+### 7. `training_sentences.txt`
+
+This file is used to seed or reinforce the learning layer.
+
+`learning_resource/model_learning.py` can read it and train the memory system from example sentences.
+
+It supports the learning system, but it is not required for normal live response generation.
+
+### 8. `resource/`
+
+This folder stores static assets used in responses.
+
+#### `resource/menu.png`
+
+This image is returned when the chatbot responds with the menu.
+
+### 9. `chatbot-ui/`
+
+This is the React frontend for the chatbot.
+
+It:
+
+- shows the chat interface
+- sends user messages to `/api/chat`
+- displays text replies and menu images
+
+It is important for user interaction, but it does not decide the chatbot logic itself.
+
+### 10. `restore.ps1`
+
+This is a support script rather than part of normal chatbot response generation.
+
+It is not in the main response or learning path.
+
+## Runtime Summary
+
+If you only want to understand the main chatbot path, focus on these files first:
+
+1. `chatbot.py`
+2. `text_normalization.py`
+3. `learning_resource/response_database.py`
+4. `learning_resource/model_learning.py`
+5. `server.py`
+6. `booking_store.py`
+
+## Important Clarification
+
+The most accurate way to describe this project is:
 
 - `rule-based chatbot with lemmatization`
 - `branching intent logic`
-- `decision tree style flow`
+- `lightweight self-learning memory`
 
-The phrase `decision tree` is fine informally if you mean the branching logic, but this code does not train or use a formal machine learning decision tree model.
-
-## Summary
-
-This chatbot combines two main ideas:
-
-- `Lemmatization` to normalize words before matching
-- `Rule-based decision flow` to route the message and extract details
-- `Lightweight self-learning memory` to reuse successful past phrasing
-
-Together, these methods let the chatbot handle common restaurant questions and simple booking or delivery requests in a predictable way.
-
-## Self-Learning Layer
-
-The self-learning feature is implemented in `learning_store.py`.
-
-What it does:
-
-- stores successful interactions with their detected intent and cleaned tokens
-- saves them to `learning_resource/learned_interactions.jsonl`
-- checks that memory store when the main rule system does not find an intent
-- reuses the closest learned match if the similarity score is high enough
-
-What it does not do:
-
-- it does not train a machine learning model
-- it does not automatically invent brand new business knowledge
-- it only learns from successful intent classifications that already happened in the chatbot
-
-This makes the bot more adaptive while keeping the project safely inside the same rule-based architecture.
+It is fine to describe the branching flow as `decision tree style`, but this project does not train or use a formal machine learning decision tree model.

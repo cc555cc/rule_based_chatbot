@@ -1,3 +1,7 @@
+#this script contains the logic of the chatbot for generating response based on extracted intentions, 
+#unknown word that presents in the query with known word will be learned and stored in learned_interaction.py
+#failure to extract intentions will result in the chatbot guessing intention with unfamiliar word based on learned interactions.
+#Finally, if guessing fail, the chatbot return generic response, telling the user that it do not understand the query.
 from learning_resource.response_database import BUSINESS_INFO, INTENT_KEYWORDS, MENU_ITEMS, RESERVATION_FIELD_KEYWORDS, NUMBER_WORDS
 from booking_store import save_booking, save_delivery
 from datetime import date, timedelta
@@ -50,7 +54,8 @@ def get_intent(phrase):
 
 def top_level_intent(word_list):
     greeting_detected = False
-
+    
+    #extract the categories / subcategories name where the keyword was found in, which then represents the intention of the query
     for word in word_list:
         for category_name, subcategories in INTENT_KEYWORDS.items():
             for keywords in subcategories.values():
@@ -87,7 +92,7 @@ def second_level_intent(top_intent, word_list):
 
     return False
 
-
+#check if the query contains a reservation signal, return a boolean value that indicating whether the user is asking for reservation
 def has_reservation_signals(word_list):
     if not word_list:
         return False
