@@ -52,3 +52,17 @@ Updated word: see | phrase: can I see the menu again | top_intent: service | sub
 Learned word: again | phrase: can I see the menu again | top_intent: service | sub_intent: menu
 Updated word: order | phrase: I would like to order a waffle fresh berries and lasagna to star road for James | top_intent: service | sub_intent: delivery
 Promoted word: order | phrase: I would like to order a waffle fresh berries and lasagna to star road for James | top_intent: service | sub_intent: delivery
+Learned word: just | phrase: Hi, I just found your restaurant. What time do you open today? | top_intent: operation | sub_intent: False
+Updated word: restaurant | phrase: Hi, I just found your restaurant. What time do you open today? | top_intent: operation | sub_intent: False
+Learned word: nice | phrase: Nice, and where are you located? | top_intent: operation | sub_intent: False
+Learned word: should | phrase: What phone number should I call if I need help? | top_intent: contact | sub_intent: False
+Updated word: if | phrase: What phone number should I call if I need help? | top_intent: contact | sub_intent: False
+Learned word: need | phrase: What phone number should I call if I need help? | top_intent: contact | sub_intent: False
+Updated word: see | phrase: Can I see the menu first? | top_intent: service | sub_intent: menu
+Learned word: first | phrase: Can I see the menu first? | top_intent: service | sub_intent: menu
+Learned word: just | phrase: Hi, I just found your restaurant. What time do you open today? | top_intent: operation | sub_intent: False
+Learned word: restaurant | phrase: Hi, I just found your restaurant. What time do you open today? | top_intent: operation | sub_intent: False
+Learned word: see | phrase: Can I see the menu first? | top_intent: service | sub_intent: menu
+Learned word: first | phrase: Can I see the menu first? | top_intent: service | sub_intent: menu
+Learned word: dish | phrase: What dishes do you have for delivery? | top_intent: service | sub_intent: delivery
+Updated word: dish | phrase: dish | top_intent: service | sub_intent: delivery

@@ -104,7 +104,7 @@ def appending_learning_entry(original_phrase, top_intent, sub_intent):
     if not top_intent:
         return
 
-    # Keep greeting detection hand-curated so unrelated phrases do not pollute it.
+    #keep greeting detection hand-curated so unrelated phrases do not pollute it.
     if top_intent in NON_LEARNABLE_TOP_INTENTS:
         return
 

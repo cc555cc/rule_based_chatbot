@@ -72,8 +72,6 @@ INTENT_KEYWORDS = {
             "eat",
             "food",
             "meal",
-            "dish",
-            "dishes",
             "drink",
             "drinks",
             "special",

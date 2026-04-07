@@ -49,12 +49,21 @@ def get_intent(phrase):
     return [top_intent, sub_intent]
 
 def top_level_intent(word_list):
+    greeting_detected = False
+
     for word in word_list:
         for category_name, subcategories in INTENT_KEYWORDS.items():
             for keywords in subcategories.values():
                 normalized_keywords = [lemmatize_word(k) for k in keywords]
                 if word in normalized_keywords:
+                    if category_name == "greeting":
+                        greeting_detected = True
+                        continue
+
                     return category_name
+
+    if greeting_detected:
+        return "greeting"
 
     return False
     
