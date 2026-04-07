@@ -96,7 +96,9 @@ export default function App() {
         {isTyping && (
           <div className="message-row bot">
             <div className="typing-indicator">
-              <span /><span /><span />
+              <span />
+              <span />
+              <span />
             </div>
           </div>
         )}
