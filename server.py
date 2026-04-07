@@ -1,3 +1,5 @@
+#this file setup a HTTP server that listens for POST requests at the /api/chat endpoint. The UI frontend sends a request of generating a response to this endpoint
+#then the server call the generate_response function from chatbot.py to generate one and return it to the frontend.
 import json
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
