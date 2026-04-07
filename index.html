@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot Test UI</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <section class="chatbox">
+      <header class="chatbox-header">
+        <h1>Rule-Based Chatbot</h1>
+        <p>Simple temporary UI for testing</p>
+      </header>
+
+      <div id="chat-messages" class="chat-messages">
+        <div class="message bot-message">Hello! This is a simple chatbot test screen.</div>
+      </div>
+
+      <form id="chat-form" class="chat-form">
+        <input
+          id="user-input"
+          type="text"
+          placeholder="Type a message..."
+          autocomplete="off"
+          required
+        >
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
